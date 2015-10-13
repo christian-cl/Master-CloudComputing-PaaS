@@ -1,0 +1,2171 @@
+
+/*@font-face {
+    font-family: 'robotolight';
+    src: url('../fonts/roboto/roboto-light-webfont.eot');
+    src: url('../fonts/roboto/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto/roboto-light-webfont.woff') format('woff'),
+         url('../fonts/roboto/roboto-light-webfont.ttf') format('truetype'),
+         url('../fonts/roboto/roboto-light-webfont.svg#robotolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto/roboto-regular-webfont.eot');
+    src: url('../fonts/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto/roboto-regular-webfont.woff') format('woff'),
+         url('../fonts/roboto/roboto-regular-webfont.ttf') format('truetype'),
+         url('../fonts/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'robotothin';
+    src: url('../fonts/roboto/roboto-thin-webfont.eot');
+    src: url('../fonts/roboto/roboto-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto/roboto-thin-webfont.woff') format('woff'),
+         url('../fonts/roboto/roboto-thin-webfont.ttf') format('truetype'),
+         url('../fonts/roboto/roboto-thin-webfont.svg#robotothin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
+
+
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('../fonts/bebasneue/bebasneue-webfont.eot');
+    src: url('../fonts/bebasneue/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebasneue/bebasneue-webfont.woff') format('woff'),
+         url('../fonts/bebasneue/bebasneue-webfont.ttf') format('truetype'),
+         url('../fonts/bebasneue/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+ 
+
+/* MENU*/
+
+html,body {
+    background-color: #f0f0f0;
+}
+
+.shade{
+    width: auto;
+    height: 90px;
+    background-color: #242527;
+    opacity: 0.8;
+}
+
+.navigation {
+    width:1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    display: inline-block;
+    height:68px;
+    width: 165px;
+    background:url(../img/logo.png);
+    margin-top: 11px;
+}
+
+#logo:hover{
+    background-position: 0 -68px; 
+}
+
+#links li{
+    padding: 0;
+    list-style-position: inside;
+    list-style-type: none;
+    display: inline-block;
+}
+
+#links {
+        float: right;
+        margin-top: 34px;
+}
+
+.inverse {
+    text-decoration: none;
+    color:#f1f1f1;
+    /*font-family: robotothin,helvetica, arial,sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:100;
+    font-size: 22px;
+    font-variant: small-caps;
+    margin-left: 15px;
+    /*font-weight: 400;*/
+}
+
+.inverse:hover, .active {
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 2px;
+}
+
+
+
+/*FOOTER*/
+
+.footer{
+    margin-top: 50px;
+}
+
+.fcolor{
+    background-color: #dce1e6;
+    padding-bottom: 25px;
+}
+
+.round {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: -57px;
+    width: 114px;
+    position: relative;
+    z-index: 1;
+}
+
+.contact{
+    width: 256px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 80px;
+}
+
+#email{
+    /*font-family: robotothin,helvetica, arial,sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:100;
+    font-size: 20px;
+    color:#ad88b7;
+    text-decoration: none;
+}
+
+#email:hover{
+   color:#835da5;
+   border-bottom: 1px solid #835da5;
+   padding-bottom: 2px;
+}
+
+.sm{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 114px;
+    padding-left: 0;
+}
+
+.sm li{
+    padding: 0;
+    list-style-position: inside;
+    list-style-type: none;
+    display: inline-block;
+}
+#in {
+    display:block;
+    height:45px;
+    width: 45px; 
+    background: url(../img/sm_st.png);
+    margin-right: 10px;
+    margin-left: 4px;
+}
+
+#in:hover {
+    background-position: 0 -45px;
+}
+
+
+#be {
+    display:block;
+    height:45px;
+    width: 45px; 
+    background: url(../img/sm_st.png);
+    background-position:-55px 0;
+    margin-right: 4px;
+}
+
+#be:hover {
+    background-position: -55px -45px;
+}
+
+/*PORTFOLIO PAGE*/
+
+.header{
+    background-image: url('../img/portfolio/portfolio_header.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    margin-bottom: 50px;
+}
+
+h1{
+    /*font-family:robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#f1f1f1;
+    font-size: 102px;
+    font-variant: small-caps;
+    width: 1000px;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 375px;
+    text-shadow:0 4px 8px rgba(0,0,0,0.75);
+}
+.p_projects:hover{
+    opacity:0.2;
+}
+.cell{
+    background-color: #3c4650;
+    width:485px;
+    height:300px;
+    float: left;
+    margin-bottom: 25px;
+    position: relative;
+}
+.cell .hover {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 120px;
+    width: 485px;
+    text-align: center;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    font-variant: small-caps;
+    color: #f1f1f1;
+    /*font-weight: 400;*/
+}
+
+h6{
+    text-align: center;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 28px;
+    font-variant: small-caps;
+    color: #f1f1f1;
+    margin-bottom: 0;
+    margin-top: 0;
+    /*font-weight: 400;*/
+}
+
+.hover-aware .hover a {
+    text-decoration: none;
+    display: block;
+    color: #f1f1f1;
+}
+
+.project_name{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 24px;
+    font-variant: small-caps;
+    color:#ad88b7;
+    margin-bottom: 0;
+    margin-top: 0;
+    /*font-weight: 400;*/
+    text-decoration:none;
+}
+.project_category{
+    text-decoration: none;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 13px;
+    color:#3c4650;
+    display: block;
+}
+
+.seemore{
+    text-decoration: none;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 13px;
+    color:#ad88b7;
+}
+.mobilelink{
+    margin-bottom: 30px;
+    padding-top: -20px;
+    height: 80px;
+}
+
+.mobilecell{
+    width:350px;
+}
+
+/* ABOUT PAGE */
+
+.headerabout {
+    background-image: url('../img/about/main1.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+
+    
+}
+.about{
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.aboutdescription{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 0;
+
+    padding-bottom: 45px;
+    float: left; 
+}
+
+.abouttitle{
+    color:#ad88b7;
+    width: 400px;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 60px;
+    font-variant: small-caps;
+}
+
+.skills{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    
+}
+.design{
+    margin-bottom: 50px;
+    padding-top: 50px;
+}
+
+.designskills {
+ width: 450px;
+
+
+}
+
+.designskills h4{
+     margin-top: 0px;
+}
+
+.designskills p {
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+  font-size: 18px;
+   color: #656565;
+   line-height: 2;
+}
+
+
+/*  CONTACT PAGE */
+.headercontact{
+    background-image: url('../img/contact/map.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height:1180px;
+}
+
+.box{
+    width: 420px;
+    height: 350px;
+    background-color: #ad88b7;
+    padding-bottom: 10px;
+}
+
+h5{
+     /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+  font-size: 38px;
+   color: #ffffff;
+   line-height: 2;
+   font-variant: small-caps;
+   text-align: center;
+   margin-bottom: 10px;
+}
+
+.contacticons{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+
+.contactinfa{
+     /*font-family: robotothin, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:100;
+    font-size: 20px;
+    color:#ffffff;
+    text-decoration: none;
+}
+
+.contactinfa:hover{
+   color:#ffffff;
+   border-bottom: 1px solid #ffffff;
+   padding-bottom: 2px;
+}
+
+.contactin{
+    padding-top: 8px;
+}
+
+
+
+
+
+/* PROJECT PAGE */
+h2{
+    font-family:bebas_neueregular, helvetica, arial, sans-serif; 
+    color:#f1f1f1;
+    font-size: 120px;
+    text-align: center;
+    font-variant: small-caps;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 145px;
+    margin-bottom: 0;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-shadow:0 4px 8px rgba(0,0,0,0.75);
+}
+
+h3{
+        /*font-family: robotothin, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#f1f1f1;
+    font-size: 28px;
+   text-align: center;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 0;
+    text-shadow:0 4px 8px rgba(0,0,0,0.75);
+}
+
+h4{
+    /*font-family: robotothin, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 28px;
+    font-variant: small-caps;
+    color: #ad88b7;
+    line-height: 8px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.pullquote {
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+   font-style: italic;
+   color:#ad88b7;
+   font-size: 20px;
+   line-height: 1.6;
+   text-align: center;
+   padding-bottom: 35px;
+}
+
+.subheader{
+    background-color: #e0e0e0;
+    padding-bottom: 25px;
+    padding-top: 80px;
+    
+}
+
+.subheadercontent{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.mainimage{
+    float: right;
+}
+
+.content{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 0;
+    clear: both;
+}
+
+.left{
+    float: left;
+    margin-right: 25px;
+    margin-top: 0;
+}
+
+.right{
+ float: right;
+ margin-right: 0;
+ margin-top: 0;
+}
+
+.content img{
+    margin-bottom: 25px;
+}
+
+.clear{
+    clear:both;
+}
+
+
+/* THOUGHTS*/
+
+.thoughts{
+    background-color: #ad88b7;
+    padding-bottom: 35px;
+    padding-top: 35px;
+}
+
+.aboutthoughts {
+    width:800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+       /*font-family: robotothin, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:100;
+   font-style: italic;
+   font-size: 22px;
+   color: #f1f1f1;
+   line-height: 1.6;
+    
+}
+
+/* OTHER WORK */
+
+.other{
+    margin-top: 75px;
+}
+.otherrow{
+    width: 870px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 25px;
+}
+
+
+.cellviolet{
+    background-color: #ad88b7;
+    width:290px;
+    height:195px;
+    float: left;
+    position: relative;
+}
+.cellviolet .hover {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 82px;
+    margin-left: 130px;
+    
+    
+}
+.seeproject{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 16px;
+    font-variant: small-caps;
+    color: #f1f1f1;
+   /* font-weight: 400;*/
+    letter-spacing: 0.045em;
+    margin-top: 0;
+    margin-left: -25px;
+
+
+}
+
+.cellviolet .hover a {
+    text-decoration: none;
+    display: block;
+}
+
+
+
+
+/*LAVAZZA*/
+
+.header1{
+    background-image: url('../img/works/lavazza/header1.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+}
+
+.rationale1{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 370px;
+    margin-top: 15px;
+    padding-top: 52px;
+    padding-bottom: 45px;
+    float: left;
+}
+
+.lavazzamenu{
+    margin-top: 10px;
+}
+
+.lavazzahighlights{
+    width: 315px;
+}
+#lavazzatitle {
+    text-indent: 38px;
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 28px;
+    font-variant: small-caps;
+    color: #ad88b7;
+    line-height: 8px;
+    margin-bottom: 25px;
+    margin-top:10px;
+    letter-spacing: 0.05em;
+}
+
+#highlights li{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    color: #656565;
+    line-height: 2;
+}
+
+.content2{
+    background-color: #04a49e;
+}
+
+#lavazzamac {
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+
+}
+
+.margintop {
+    margin-top: 20px;
+}
+
+
+/*AKOROC */
+
+.header2 {
+    background-image: url('../img/works/akoroc/header2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+    
+}
+
+
+.rationale2{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 370px;
+    margin-top: 30px;
+    float: left;
+}
+
+.akorocbranding{
+    background-image: url('../img/works/akoroc/akoroc_2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 800px;
+    background-size: cover;
+
+}
+
+.akoroclogo{
+    background-image: url('../img/works/akoroc/akoroc_7.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 423px;
+    background-size: cover;
+}
+
+.content3{
+        background-color: #fcf1f0;
+
+}
+
+.pullquote1 {
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+   /*font-weight: 400;*/
+   color:#6b4e53;
+   font-size: 20px;
+   line-height: 1.6;
+   text-align: center;
+    padding-bottom: 50px;
+}
+
+/* RENT COLUMN */
+
+
+.rciphone{
+    margin-left: -200px;
+    margin-top: 25px;
+}
+
+.rcws{
+    margin-top: 36px;
+    width: 290px;
+}
+
+.rcweb{
+     /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    color: #656565;
+    line-height: 2;
+    width: 290px;
+
+}
+
+.rcbrand{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    color: #656565;
+    line-height: 2;
+    width: 500px;
+}
+.icons{
+    background-color: #f6a471;
+    padding-bottom: 25px;
+    padding-top: 75px;
+    margin-top: -75px;
+}
+
+.rcicons{
+    width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.rclogo{
+    margin-left: auto;
+    margin-right: auto;
+    width:770px;
+    margin-bottom: 0;
+}
+
+.rccontent{
+    width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-bottom: 50px;
+    margin-top: 10px;
+ clear: both;
+    
+}
+
+.margin{
+    margin-top: 25px;
+}
+.header3 {
+    background-image: url('../img/works/rentcolumn/header_rentcolumn.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+    
+}
+
+.rentcolumnad{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    color: #656565;
+    line-height: 2;
+    width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 50px;
+
+}
+
+/*RAIN */
+
+.headerrain{
+    background-image: url('../img/works/rain/headerrain.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+}
+.rationalerain{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 420px;
+    margin-top: 65px;
+    float: left;
+}
+
+#magazine{
+	width:869px;
+	height:593px;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+#magazine .turn-page{
+	background-color:#ccc;
+	background-size:100% 100%;
+}
+
+.rsubtitle{
+    width:376px;
+}
+
+.raincontent{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    padding-bottom: 50px;
+    clear: both;
+    
+}
+
+.rightbutton {
+    display:block;
+    height: 80px;
+    width: 40px; 
+    background: url(../img/works/rain/rain_1_3.png);
+    margin-top: 257px;
+}
+
+.rightbutton:hover {
+    background-position: 0 -80px;
+}
+
+.leftbutton {
+    display:block;
+    height: 80px;
+    width: 40px; 
+    background: url(../img/works/rain/rain_1_2.png);
+    margin-top: 257px;
+}
+
+.leftbutton:hover {
+    background-position: 0 -80px;
+}
+
+/*SUGARRAYS*/
+
+ .header5{
+    background-image: url('../img/works/sugarrays/headerboxing.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;}
+
+.content3, .content5, .content_akoroc{
+    background-color: #f7f7f8;
+}
+
+.content3 .content{
+    padding-bottom:10px;
+    padding-top:15px;
+}
+.content4{
+    background-color: #eeeeef;
+    
+}
+
+.rationalesugarrays{
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 410px;
+    margin-top: 45px;
+    float: left;
+}
+
+.sugarraysweb {
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    font-size: 18px;
+    color: #656565;
+    line-height: 2;
+    width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 35px;
+}
+
+/*brie*/
+
+.contentbrie, .adbrie{
+    background-color:#f1ede8;
+}
+
+.contentbrie .content {
+    padding-bottom:25px;
+    padding-top:25px;
+}
+
+.header4{
+    background-image: url('../img/works/brie/headerbrie.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;}
+    
+/*POSTER*/
+
+
+.headerposter{
+    background-image: url('../img/works/poster/headerposter.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;}
+    
+#rationaleposter{
+    margin-top:0;
+}
+
+.content.nomargin  img{
+    margin-top:0;
+    margin-bottom:0;
+}
+   
+   #poster_8{
+    margin-top:25px;
+    } 
+    
+/*BOOK*/
+.headerbook{
+    background-image: url('../img/works/book/headerbook.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;}
+    
+.rationalebook {
+    /*font-family: robotolight, helvetica, arial, sans-serif;*/
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 435px;
+    margin-top: 70px;
+    float: left;
+}
+#mainimage_book{
+    width:360px;
+}
+
+/* WEB TEMPLATES*/
+
+.header-restaurant-theme{
+    background-image: url('../img/works/themes/header.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+}
+    
+.webtemplate{
+        margin-right:auto;
+        margin-left:auto;
+        float:none;
+}
+
+.webtemplate-rationale{
+    font-family:roboto, helvetica, arial, sans-serif;
+    font-weight:300;
+    color:#656565;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 450px;
+    margin-top: 30px;
+}
+
+
+.pagename{
+    padding-top:50px;
+    padding-bottom:20px;
+    }
+ 
+.header-hairsalon-theme{
+    background-image: url('../img/works/themes/header2.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 600px;
+    background-size: cover;
+}
+    
+    
+/*********************************
+	     Media Queries
+*********************************/
+
+@media (min-width:1281px){
+    
+    /*** All ***/
+    
+    .mainimage{
+        width:610px;
+        }
+        
+        
+    /*** Lavazza***/
+    
+    .img_small{
+        width:485px;
+    }
+    #menu{
+        width:655px;
+    }
+    .l_ad{
+        width:300px;
+        margin-top:34px;
+    }
+    .l_ad_middle{
+        width:350px;
+    }
+    
+    /***     ***/
+    #mainimage_rain{
+       width:450px;
+       margin-right:40px;
+    }
+    
+    .rationalerain{
+       margin-left:60px;
+    }
+     #mainimage_sugarrays{
+        width:440px;
+        margin-right:50px;
+    }
+     #r_sugarrays{
+        margin-left:50px;
+    }
+    
+    .rationalebook{
+        margin-left:70px;
+    }
+    #mainimage_book{
+        margin-right:70px;
+    }
+}
+
+@media (max-width:1280px){
+    
+    /*** All ***/
+    
+    .navigation, .header h1, .content, .subheadercontent, .aboutthoughts, .rcicons, .rccontent, .raincontent, .headerabout h1{
+        width:960px;
+    }
+    
+    .header, .header1, .header2, .header3, .header4, .header5, .headerbook, .headerposter, .headerrain, .headerabout, .header-hairsalon-theme, .header-restaurant-theme{
+        height:500px;
+    }
+    
+     .mainimage {
+         width:565px;
+    }
+    
+    .subheader{
+        padding-top:60px;
+    }
+    
+     h2{
+        margin-top:80px;
+    }
+    
+    
+    /*** Portfolio page ***/
+    
+    h1{
+    margin-top:275px;
+    }
+    
+    .cell, .cell .hover{
+        width:465px;
+        height:288px;
+    }
+    
+    
+    /*** Lavazza***/
+    
+    .img_small{
+        width:467px;
+    }
+    #menu{
+        width:620px;
+    }
+    .l_ad{
+        width:290px;
+        margin-top:25px;
+    }
+    .l_ad_middle{
+        width:330px;
+    }
+    
+    
+    /***  Akoroc   ***/
+    
+    .akorocbranding{
+        height:600px;
+    }
+    .ac_ad{
+        width:303px;
+        height:433px;
+    }
+    
+    /*** Rent Column ***/
+    
+    .rciphone{
+        width:840px;
+    }
+    .rcbrand, #rclogostructure{
+        width:467px;
+    }
+    
+    /*** Sugarrays ***/
+    
+    .sugarraysad{
+        width:467px;
+        height:760px;
+    }
+    #mainimage_sugarrays{
+        width:440px;
+        margin-right:50px;
+    }
+    
+    #r_sugarrays{
+        margin-left:50px;
+    }
+    
+    /*** Brie ***/
+    
+    .briead{
+        width:467px;
+        height:655px;
+    }
+    #rationale_brie{
+        margin-top:50px;
+    }
+
+    /*** Rain ***/
+    
+    #mainimage_rain{
+        width:420px;
+        margin-right:40px;
+    }
+ 
+    .rationalerain{
+       margin-left:60px;
+    }
+    #magazine{
+        width:830px;
+        height:566px;
+    }
+    
+    .leftbutton, .rightbutton{
+        margin-top:243px;
+    }
+    
+    /*** Book ***/
+        .rationalebook{
+        margin-left:70px;
+    }
+    #mainimage_book{
+        margin-right:70px;
+    }
+    
+    /*** About ***/
+        
+    .designskills{
+             width:435px;
+    }
+    .skillsimg{
+         width:317px;
+    }
+
+    /*** Contact ***/
+    .headercontact{
+        height:1024px;
+    }
+}
+
+
+
+@media (max-width:1024px){
+    
+    /*** All ***/
+    
+    .navigation, .header h1, .content, .subheadercontent, .aboutthoughts, .rcicons, .rccontent, .raincontent, .headerabout h1{
+        width:900px;
+    }
+    h2{
+        margin-top:185px;
+    }
+    .subheader{
+        padding-top:60px;
+    }
+    .mainimage {
+        width:505px;
+    }
+    
+    
+    /*** Portfolio page ***/
+    
+    .cell, .cell .hover{
+        width:435px;
+        height:269px;
+    }
+    
+    
+    /*** Lavazza ***/
+    
+    .rationale1 {
+        padding-top:15px;
+    }
+    .img_small{
+        width:437px;
+    }
+    #menu{
+        width:560px;
+    }
+    #lavazzamac{
+        width:750px;
+    }
+    .l_ad{
+        width:275px;
+        margin-top:17px;
+    }
+    .l_ad_middle{
+        width:300px;
+    }
+    
+    /*** Akoroc***/
+    
+    .rationale2{
+        margin-top: 0;
+    }
+    .akoroclogo{
+        height:400px;
+    }
+    .akorocbranding{
+        height:450px;
+    }
+    .ac_ad{
+        width:283px;
+        height:405px;
+    }
+    .pullquote1{
+        padding-bottom: 25px;
+    }
+    
+    /*** Rent Column ***/
+    
+    .rciphone{
+        width:785px;
+    }
+    .rclogo{
+        width:670px;
+    }
+    .rcbrand, #rclogostructure{
+        width:437px;
+    }
+    
+    
+    /*** Sugarrays ***/
+    .content3 .content{
+        padding-bottom:0;
+    }
+    
+    .content4 .content {
+        padding-bottom:20px;
+    }
+    
+    .sugarraysad{
+        width:437px;
+        height:711px;
+    }
+    
+        #mainimage_sugarrays{
+        margin-right:0;
+    }
+    
+    #r_sugarrays{
+        margin-left:0;
+    }
+    
+    /*** Brie ***/
+    
+    .briead{
+        width:437px;
+        height:613px;
+    }
+    
+    
+    /*** Rain ***/
+    #magazine{
+        width:770px;
+        height:525px;
+    }
+    
+    #mainimage_rain{
+        margin-right:20px;
+    }
+ 
+    .rationalerain{
+       margin-left:20px;
+    }
+
+    .leftbutton, .rightbutton{
+        margin-top:222px;
+    }
+    
+    /*** Book ***/
+    .rationalebook{
+        margin-left:40px;
+    }
+    #mainimage_book{
+        margin-right:40px;
+    }
+    
+    
+    /*** About ***/
+    
+    .designskillsimg{
+        width:380px;
+    }
+
+    .designskills{
+         width:490px;
+    }
+    
+    .skillsimg{
+        width:290px;
+    }
+    
+    /*** Contact ***/
+    .headercontact{
+        height:768px;
+    }
+}
+
+@media (min-width:768px){
+    .mobilelink{
+        display: none;
+    }
+}
+
+@media (max-width:768px){
+    
+    /*** All ***/
+      
+    .navigation, .header h1, .content, .subheadercontent, .aboutthoughts, .otherrow , .rcicons, .rccontent, .raincontent, .headerabout h1{
+        width:724px;
+    }
+    .content{
+        padding-top:20px;
+        padding-bottom: 0;
+    }
+    .content img{
+        margin-bottom:15px;
+    }
+    .thoughts{
+        margin-top:60px;
+    }
+    .left{
+        margin-right:24px;
+    }
+    .subheader{
+        padding-top:50px;
+    }
+    .mainimage {
+         width:400px;
+    }
+    .rationale1, .rationale2, .rationalesugarrays, .rationalebook, .rationalerain, .webtemplate-rationale{
+        font-size:14px;
+        width:300px;
+        padding:0;
+        margin-top:0;
+    }
+    .cellviolet {
+        width:240px;
+        height:161px;
+    }
+    .cellviolet .hover{
+        margin-left:105px;
+    }
+    
+    /*** Portfolio page ***/
+    
+    .cell, .cell .hover{
+        width:350px;
+        height:216px;
+    }
+
+    .cell{
+        margin-bottom: 0px;
+    }
+    .header{
+        margin-bottom:0px;
+    }
+    
+    
+    /*** Lavazza ***/
+    
+    .img_small{
+        width:350px;
+    }
+    #menu{
+        width:724px;
+    }
+    .lavazzahighlights{
+        float:left;
+        padding-left:200px;
+        padding-top:10px;
+        padding-bottom:20px;
+    }
+    #lavazzamac{
+        width:600px;
+    }
+    .l_ad{
+        width:209px;
+    }
+    .l_ad_middle{
+        width:255px;
+    }
+    .margintop{
+        padding-bottom: 20px;
+    }
+    
+    /*** Akoroc ***/
+    .akoroclogo{
+        height:300px;
+    }
+    .ac_ad{
+        width:225px;
+        height:322px;
+    }
+    .pullquote1, .pullquote{
+        padding-bottom:30px;
+        padding-top:10px;
+    }
+    
+    /*** Rent Column ***/
+    .rciphone{
+        width:860px;
+        margin-left:-145px;
+    }
+    .rcws{
+        float:left;
+        margin-left:217px;
+    }
+    p.rcweb.right{
+        padding-bottom: 75px;
+    }
+    .rcws.right{
+        margin-top:0;
+    }
+    .rclogo{
+        width:600px;
+        padding-top:30px;
+    }
+    .rccontent{
+        margin-left:100px;
+    }
+    .rcbrand, #rclogostructure{
+        width:500px;
+    }
+    .rcbrand{
+        margin-bottom:25px;
+    }
+    .rentcolumnad{
+        width:500px;
+        margin-bottom: 25px;
+        margin-top:10px;
+    }
+    .icons{
+    padding-bottom: 5px;
+    padding-top: 0;
+    margin-top: -50px;
+    }
+    
+    /*** Sugarrays ***/
+    
+    .sugarraysweb{
+        width:500px;
+        margin-top:10px;
+    }
+    
+    .rationalesugarrays{
+        margin-top:20px;
+    }
+    .sugarraysad{
+        width:350px;
+        height:569px;
+    }
+    #mainimage_sugarrays{
+        width:390px;
+    }
+
+    /*** Brie ***/
+    .briead{
+        width:350px;
+        height:491px;
+    }
+    
+    /*** Minors ***/
+    .rationalebook{
+        margin-top:65px;
+        margin-left:25px;
+    }
+        #mainimage_book{
+        margin-right:25px;
+    }
+    
+    #mainimage_poster{
+        margin-top:50px;
+    }
+    
+
+    /*** Rain ***/
+    
+    .rationalerain{
+        margin-top:60px;
+        margin-left:0;
+    }
+    #magazine{
+        width:600px;
+        height:409px;
+    }
+        #mainimage_rain{
+        margin-right:0;
+    }
+ 
+    .leftbutton, .rightbutton{
+        margin-top:164px;
+    }
+    
+    /*** About ***/
+    .aboutdescription{
+        padding-bottom:0;
+    }
+    .designskills p{
+        font-size: 16px;
+        line-height: 1.7;
+    }
+    .designskillsimg{
+        width:320px;
+    }
+    .designskills{
+        width:380px;
+    }
+    .skillsimg{
+        width:235px;
+    }
+    
+    /*** Contact ***/
+    .headercontact{
+        height:1024px;
+    }
+    .box{
+        width:365px;
+    }
+}
+
+@media (max-width:480px){
+    
+    /*** All ***/
+      
+    .navigation, .content,.header h1, .subheadercontent,.aboutthoughts, .l_ad, .l_ad_middle,.rccontent, .raincontent, .headerabout h1{
+        width:350px;
+    }
+    
+    .thoughts{
+        margin-top:40px;
+    }
+    .content{
+        padding-bottom:10px;
+    }
+    .content img{
+    margin-bottom:15px;
+    }
+    #logo{
+        display:none;
+    }
+    #links{
+        margin-right: 17%;
+    }
+    .header, .header1, .header2, .header3, .header4, .header5, .headerbook, .headerposter, .headerrain, .headerabout, .header-hairsalon-theme, .header-restaurant-theme{
+        height:320px;
+    }
+    h1{
+        margin-top:100px;
+        font-size:95px;
+    }
+    h2{
+        font-size:95px;
+        margin-top:50px;
+    }
+    h3{
+        font-size: 20px;
+    }
+    .left{
+        margin-right:0;
+    }
+    .subheader{
+        padding-top:40px;
+    }
+    .rationale1, .rationale2, .rationalesugarrays, .rationalebook, .rationalerain, .webtemplate-rationale {
+        font-size:14px;
+        width:350px;
+        padding-top:0;
+        margin-top:0;
+    }
+    .mainimage{
+       width:350px;
+       padding-top:35px;
+    }
+    .aboutthoughts{
+        font-size:18px;
+    }
+    .otherrow{
+        width:290px;
+        margin-right:auto;
+        margin-left:auto;
+    }
+    .cellviolet {
+        width:290px;
+        height:195px;
+    }
+    .cellviolet .hover{
+        margin-left:130px;
+    }
+    
+
+    
+    /*** Lavazza ***/
+      
+    #lavazzamac{
+       width:350px;
+    }
+    #menu{
+        width:350px;
+    }
+    .lavazzahighlights{
+        float:left;
+        padding-left:0;
+        padding-top:15px;
+    }
+    #highlights li{
+        font-size:16px;
+    }
+    .pullquote, .pullquote1{
+        font-size:16px;
+        padding-top: 10px;
+        line-height:1.8;
+        padding-bottom:20px;
+        padding-top:0;
+    }
+    .l_ad{
+        margin-top:0px;
+    }
+    .right.l_ad{
+        margin-bottom:0;s
+    }
+
+    /*** Akoroc ***/
+    
+    .akoroclogo{
+        height:200px;
+    }
+    .akorocbranding{
+        height:350px;
+    }
+    .ac_ad{
+        width:316px;
+        height:452px;
+        padding-left:20px;
+    }
+    img.right.ac_ad{
+        padding-right:15px;
+    }
+    .right.margin_b{
+        margin-bottom:0;
+    }
+    
+
+    /*** Rent Column ***/
+    
+    .rciphone{
+        width:560px;
+        margin-left:-145px;
+        margin-top:0;
+    }
+    .rcws{
+        float:left;
+        margin-left:45px;
+        margin-bottom: 40px;
+        margin-top:10px;
+    }
+    p.rcweb.right{
+        font-size: 16px;
+        padding-bottom:0px;
+        line-height:1.8;
+    }
+    .rclogo{
+        width:300px;
+    }
+    .rclogo img {
+        margin-bottom:0;
+    }
+    .rcbrand, #rclogostructure{
+        width:350px;
+    }
+    .rcbrand{
+        margin-bottom:25px;
+        font-size:16px;
+        line-height:1.8;
+    }
+    .rccontent{
+        margin-left:0;
+        padding-bottom:25px;
+    }
+    .rentcolumnad{
+        font-size:16px;
+        width:350px;
+        margin-bottom:15px;
+        margin-top:0px;
+        line-height:1.8;
+    }
+    .rcicons{
+        width:440px;
+        margin-bottom:30px;
+    }
+    .icons{
+        padding-bottom:1px;
+        margin-top: -30px;
+    }
+    .rcicons img{
+        margin-top:15px;
+    }
+    p.rcweb.right {
+        margin-bottom:0;
+    }
+    #rcbranding{
+        padding-bottom:10px;
+    }
+    
+    /*** Sugarrays ***/
+    
+    .sugarraysweb{
+        font-size:16px;
+        width:350px;
+        line-height:1.8;
+    }
+    #mainimage_sugarrays{
+        width:350px;
+    }
+    
+    /*** Brie ***/
+    
+    #rationale_brie{
+        margin-top:0;
+    }
+    #brie_1{
+        margin-bottom:0px;
+    }
+    #brie_7{
+        margin-bottom:0;
+    }
+    
+    /*** Minors ***/
+    
+    .headerposter h2{
+        line-height:0.7;
+        padding-bottom: 15px;
+        margin-top:20px; 
+    }
+    #mainimage_poster{
+        margin-top:0px;
+    }
+    #posterad1, #posterad2{
+        width: 310px;
+         margin-top:25px;
+         padding-left:25px;
+    }
+    #posterad2{
+        float:left;
+    }
+
+        .rationalebook{
+        margin-left:0;
+    }
+        #mainimage_book{
+        margin-right:0;
+    }
+    
+    
+    /*** Rain ***/
+    #mainimage_rain{
+        width:352px;
+    }
+    #magazine{
+        width:350px;
+        height:239px;
+    }
+    .leftbutton, .rightbutton{
+        display:none;
+    }
+    
+    .smallbuttons{
+        width:200px;
+        margin-right:auto;
+        margin-left:auto;
+        margin-top:-30px;
+    }
+    #smallbuttonright {
+        display:block;
+        height: 40px;
+        width: 20px; 
+        background: url(../img/works/rain/rain_1_3_small.png);
+        float:right;
+
+    }
+
+    #smallbuttonright:hover {
+    background-position: 0 -40px;
+    }
+
+    #smallbuttonleft {
+    display:block;
+    height: 40px;
+    width: 20px; 
+    background: url(../img/works/rain/rain_1_2_small.png);
+    float:left;
+
+    }
+
+    #smallbuttonleft:hover {
+        background-position: 0 -40px;
+    }
+
+
+    
+    /*** About ***/
+    
+    .aboutdescription{
+        width:400px;
+        font-size:14px;
+        padding-left:40px;
+    }
+    .skillsimg{
+        width:300px;
+        padding-bottom:25px;
+    }
+    .skills{
+        padding-top:25px;
+        padding-bottom:10px;
+    }
+    .designskillsimg{
+        display: none;
+    }
+    .design{
+        padding-top:25px;
+        margin-bottom:25px;
+    }
+    #about_branding, #about_print{
+        float:left;
+    }
+    
+    /*** Contact ***/
+    .headercontact{
+        height:320px;
+    }
+    
+    h5{
+        font-size:20px;
+        margin-top:10px;;
+    }
+    .box{
+        height:200px;
+    }
+    .contactinfa{
+        font-size:16px;
+        margin-left:10px;
+        padding-bottom:0;
+    }
+    .contacticons img{
+        width:30px;
+    }
+    #content_contact{
+        padding-top:0;
+        margin-top:0;
+    }
+
+}
+@media (max-width:320px) {
+    
+    /*** All ***/
+      
+    .navigation, .content, .header h1, .subheadercontent, .aboutthoughts, .l_ad, .l_ad_middle, .rcicons, .rccontent, .headerabout h1, .raincontent{
+        width:300px;
+    }
+    .content{
+        padding-bottom:0px;
+    }
+    .content img{
+        margin-bottom:10px;
+    }
+    .other{
+        margin-top:60px;
+    }
+    .footer{
+        margin-top:35px;
+    }
+    #logo{
+       display:none;
+    }
+    #links{
+        margin-right: 12%;
+        padding-left: 0;
+    }
+    .header, .header1, .header2, .header3, .header4, .header5, .headerbook, .headerposter, .headerrain ,.headerabout, .header-hairsalon-theme, .header-restaurant-theme{
+        height:480px;
+    }
+    h1 {
+        margin-top:280px;
+        font-size:78px;
+    }
+    h2 {
+        margin-top:80px;
+    }
+    .subheader{
+        padding-top:40px;
+    }
+    .rationale1, .rationale2, .rationalesugarrays, .rationalebook, .rationalerain, .webtemplate-rationale{
+        font-size:14px;
+        width:280px;
+        padding-top:0;
+        margin-top:0;
+        text-align: center;
+        margin-left: 10px;
+    }
+    .mainimage {
+       width:300px;
+    }
+   
+    /*** Portfolio page***/
+     
+    .cell, .cell .hover{
+        width:300px;
+        height:186px;
+    }
+    .cell .hover {
+        top:50px;
+    }
+    .hover a{
+        font-size:16px;
+    }
+    
+    .mobilecell{
+        width:300px;
+    }
+    /*** Lavazza***/
+    
+    .img_small, #menu{
+        width:300px;
+        /*height:200px;*/
+    }
+    #lavazzamac{
+        width:300px;
+    }
+    
+    /*** Akoroc ***/
+    .akoroclogo{
+        height:130px;
+    }
+    .akorocbranding{
+        height:200px;
+    }
+   .ac_ad{
+    padding-left:0;
+    width:300px;
+    height:429px;
+    }
+    img.right.ac_ad{
+        padding-right:0;
+    }
+    
+    /*** Rent Column ***/
+    .header3 h2, .header4 h2, .headerposter h2, .headerrain h2{
+        line-height:0.7;
+        padding-bottom: 15px;
+    }
+    .rciphone{
+        width:480px;
+        margin-left:-145px;
+        margin-top:0;
+    }
+    .rcws{
+        float:left;
+        margin-left:5px;
+        margin-bottom: 40px;
+        margin-top:10px;
+    }
+    .rclogo{
+        width:250px;
+    }
+    .rcbrand, #rclogostructure{
+        width:300px;
+    }
+    .rentcolumnad{
+        font-size:16px;
+        width:300px;
+    }
+    .rcicons img{
+        margin-top:0;
+    }
+    #rcbranding{
+        padding-bottom:20px;
+    }
+    
+    /*** Sugarrays ***/
+    
+    .sugarraysweb{
+        font-size:16px;
+        width:300px;
+    }
+    
+    .sugarraysad{
+        width:300px;
+        height:488px;
+    }
+        #mainimage_sugarrays{
+        width:300px;
+    }
+    
+    /*** Brie ***/
+    
+    .briead{
+        width:300px;
+        height:421px;
+    }
+    
+    /*** Minors ***/
+    .headerposter h2{
+        margin-top:70px;
+    }
+    #posterad1, #posterad2{
+        width:270px;
+        padding-left:15px;
+    }
+    
+    #mainimage_book{
+     width:300px; 
+    }
+    
+    /*** Rain ***/
+    #mainimage_rain{
+        width:300px;
+    }
+    #magazine{
+        width:300px;
+        height:205px;
+    }
+    .smallbuttons{
+        width:150px;
+    }
+
+    /*** About ***/
+    .aboutdescription{
+         width:300px;
+         padding-left:10px;
+    }
+
+    .designskills{
+        width:280px;
+    }
+    
+    /*** Contact ***/
+    .headercontact{
+        height:480px;
+    }
+    .box{
+        width:300px;
+    }
+    #content_contact{
+        margin-top:170px;
+    }
+}
+
