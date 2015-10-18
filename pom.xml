@@ -47,12 +47,14 @@
 	</dependency>
   </dependencies>
   <build>
+  
   	<plugins>
   		<plugin>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-maven-plugin</artifactId>
             <version>1.9.27</version>
         </plugin>
+
   	</plugins>
   </build>
 </project>
