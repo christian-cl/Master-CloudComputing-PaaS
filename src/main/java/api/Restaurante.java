@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 		/**
 		 * 
 		 */
+	private int prueba;
 		private static final long serialVersionUID = 1L;
 		private String nombre, email, direccion, telefono, descripcion;
 		public Restaurante(){}
