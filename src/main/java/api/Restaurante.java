@@ -8,16 +8,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 		/**
 		 * 
 		 */
-	private int prueba;
 		private static final long serialVersionUID = 1L;
-		private String nombre, email, direccion, telefono, descripcion;
+		private String nombre, email, direccion, telefono, descripcion, latitud, longitud;
 		public Restaurante(){}
-		public Restaurante(String nombre, String email, String direccion, String telefono, String descripcion) {
+		public Restaurante(String nombre, String email, String direccion, String telefono,
+				String descripcion, String latitud, String longitud) {
 			this.nombre = nombre;
 			this.email = email;
 			this.direccion = direccion;
 			this.telefono = telefono;
 			this.descripcion = descripcion;
+			this.latitud = latitud;
+			this.longitud = longitud;
 		}
 		public String getNombre() {
 			return nombre;
@@ -53,5 +55,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 		public String toString() {
 			return "Restaurante [nombre=" + nombre + ", email=" + email + ", direccion=" + direccion + ", telefono="
 					+ telefono + ", descripcion=" + descripcion + "]";
+		}
+		public String getLatitud() {
+			return latitud;
+		}
+		public void setLatitud(String latitud) {
+			this.latitud = latitud;
+		}
+		public String getLongitud() {
+			return longitud;
+		}
+		public void setLongitud(String longitud) {
+			this.longitud = longitud;
 		}
 	}

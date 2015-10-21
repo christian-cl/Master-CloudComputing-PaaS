@@ -38,12 +38,16 @@ public class RestauranteService {
 		e1.setProperty("telefono", "951862145");
 		e1.setProperty("descripcion", "El Restaurante La Trastienda se "
 				+ "encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.");
+		e1.setProperty("latitud", "37.206546");
+		e1.setProperty("longitud", "37.206546");
 		Entity e2 = new Entity("Restaurante");
 		e2.setProperty("nombre", "El Reservado");
 		e2.setProperty("email", "elreservado46@gmail.com");
 		e2.setProperty("direccion", "Calle Acebuchal, 15, Autovía del Mediterráneo, Salida 256 - Rincón de la Victoria");
 		e2.setProperty("telefono", "951234789");
 		e2.setProperty("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
+		e2.setProperty("latitud", "36.725604");
+		e2.setProperty("longitud", "-4.255078");
 		Entity e3 = new Entity("Restaurante");
 		e3.setProperty("nombre", "Indian City");
 		e3.setProperty("email", "indiancity76@gmail,com");
@@ -51,6 +55,8 @@ public class RestauranteService {
 		e3.setProperty("telefono", "951234951");
 		e3.setProperty("descripcion", "El exótico Restaurante Indian City está situado en Benalmádena, Málaga, un enclave único para disfrutar del buen tiempo de la Costa del Sol, "
 				+ "y a pocos pasos de Puerto Marina.");
+		e3.setProperty("latitud", "36.600891");
+		e3.setProperty("longitud", "-4.515973");
 		ds.put(e2);
 		ds.put(e1);
 		ds.put(e3);
@@ -80,7 +86,9 @@ public class RestauranteService {
 			String direccion = (String) e.getProperty("direccion");
 			String telefono = (String) e.getProperty("telefono");
 			String descripcion = (String) e.getProperty("descripcion");
-			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion));
+			String latitud = (String) e.getProperty("latitud");
+			String longitud = (String) e.getProperty("longitud");
+			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud));
 		}
 		return restaurantes;
 	}
@@ -99,6 +107,8 @@ public class RestauranteService {
 			e1.setProperty("direccion", r.getDireccion());
 			e1.setProperty("telefono", r.getTelefono());
 			e1.setProperty("descripcion",r.getDescripcion());
+			e1.setProperty("latitud", r.getLatitud());
+			e1.setProperty("longitud", r.getLongitud());
 			ds.put(e1);
 			return Response.ok("Restaurante agregado correctamente.").build();
 		}else{
