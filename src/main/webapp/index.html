@@ -15,14 +15,167 @@
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
 
-            </head>
+</head>
 
 <body ng-controller="MainController">
 
-    <restaurantes ng-show="flag" ng-controller="RestaurantsController"></restaurantes>
-    <restaurantes-details ng-hide="flag" ng-controller="DetailsController"></restaurantes-details>
+    <!--<restaurantes ng-show="flag" ng-controller="RestaurantsController"></restaurantes>-->
+    <!--<restaurantes-details ng-hide="flag" ng-controller="DetailsController"></restaurantes-details>-->
     <!--<restaurantes ng-show="flag"></restaurantes>-->
     <!--<restaurantes-details ng-hide="flag"></restaurantes-details>-->
+    <div class="header">
+        <div class="shade">
+            <div class="navigation">
+                <a href="portfolio.html" id="logo"></a>
+                <ul id="links">
+                    <li ><a class="inverse active" href="index.html">Inicio</a></li>
+                    <li><a class="inverse" href="add-restaurant.html">Añadir  Restaurante</a></li>
+                    <li><a class="inverse" href="contact.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h1>Restaurantes</h1>
+    </div>
+
+    <div ng-show="flag"class="content">
+        {{hola}}
+        <div>
+            <div class="left mobilecell">
+                <div class="cell hover-aware">
+                    <a href="la-trastienda.html"><img class="projects"src="img/portfolio/9.png" width="100%" height="100%"></a>
+                    <div class="hover"> <a href="restaurant-theme.html"> <h6>{{restaurants[0].name}}</h6> junto a la Plaza de Toros de la Malagueta.</a></div>
+                </div>
+
+                <div class="mobilelink left">
+                    <a class="project_name" href="la-trastienda.html">{{restaurants[0].name}}</a>
+                    <a class="project_category" href="la-trastienda.html"><em>{{restaurants[0].subname}}</em></a>
+                    <a class="seemore" href="lavazza.html"><em>See more ></em></a>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+
+
+            <div class="right mobilecell">
+
+                <div class="cell right hover-aware">
+                    <a href="hairsalon-theme.html"><img class="projects" src="img/portfolio/10.png" width="100%" height="100%"></a>
+                    <div class="hover"> <a href="hairsalon-theme.html"><h6>{{restaurants[1].name}}</h6> a pocos pasos de Puerto Marina.</a></div>
+                </div>
+
+                <div class="mobilelink left">
+                    <a class="project_name" href="hairsalon-theme.html">Indian City </a>
+                    <a class="project_category" href="hairsalon-theme.html"><em>a pocos pasos de Puerto Marina.</em></a>
+                    <a class="seemore" href="hairsalon-theme.html"><em>See more ></em></a>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+
+        <div>
+            <div class="left mobilecell">
+                <div class="cell hover-aware">
+                    <a href="lavazza.html"><img class="projects"src="img/portfolio/1.png" width="100%" height="100%"></a>
+                    <div class="hover"> <a href="lavazza.html"> <h6>El Reservado</h6> zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales.</a></div>
+                </div>
+
+                <div class="mobilelink left">
+                    <a class="project_name" href="lavazza.html">El Reservado</a>
+                    <a class="project_category" href="lavazza.html"><em>zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales.</em></a>
+                    <a class="seemore" href="lavazza.html"><em>See more ></em></a>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+
+
+            <div class="right mobilecell">
+
+                <div class="cell right hover-aware">
+                    <a href="akoroc.html"><img class="projects" src="img/portfolio/2.png" width="100%" height="100%"></a>
+                    <div class="hover"> <a href="akoroc.html"><h6>El Pimpi</h6> a pocos pasos de la Plaza de la Merced.</a></div>
+                </div>
+
+                <div class="mobilelink left">
+                    <a class="project_name" href="akoroc.html">El Pimpi </a>
+                    <a class="project_category" href="akoroc.html"><em>a pocos pasos de la Plaza de la Merced.</em></a>
+                    <a class="seemore" href="akoroc.html"><em>See more ></em></a>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+        </div>
+        </div>
+
+        <div ng-hide="flag">
+            <div class="subheader">
+                <div class="subheadercontent">
+                    <div class="webtemplate-rationale webtemplate ">
+                        <a class="project_name" href="la-trastienda.html">La Trastienda</a></div>
+                    <div class="webtemplate-rationale webtemplate ">
+                        Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                        Email: latrastienda18@gmail.com
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                        Direccion: Calle Cervantes, nº 10 - Málaga
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                        Teléfono: 951862145
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                        Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="content">
+                <div class="pullquote1 pagename">Imágenes y Localización</div>
+                <img src="img/works/themes/restaurant_02.png"  width="100%"/>
+            </div>
+
+
+            <div class="thoughts">
+                <div class=aboutthoughts><q>I come up with concepts that fit in well with the company's image and audience.</q>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="round">
+                <img src="img/getintouch.png" width="114" height="114">
+            </div>
+            <div class="fcolor">
+                <div class="contact">
+                    <a id="email"target="_blank" href="mailto:restaurantes@gmail.com">restaurantes@gmail.com</a>
+                </div>
+                <div class="contact1">
+                    <ul class="sm">
+                        <li><a href="http://www.linkedin.com/pub/restaurantes/45/141/145" target="_blank" id="in"></a></li>
+                        <li><a href="http://be.net/restaurantes" target="_blank" id="be"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!--<script src="js/index.js"></script>-->
@@ -33,5 +186,6 @@
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
