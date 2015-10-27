@@ -3,8 +3,8 @@
  */
 angular.module('app').factory('RestaurantService', RestaurantService);
 
-RestaurantService.$inject = ['$http', '$scope'];
-function RestaurantService($http, $scope) {
+RestaurantService.$inject = ['$http'];
+function RestaurantService($http) {
     var baseUrl = '/api/restaurantes';
     var service = {};
 
