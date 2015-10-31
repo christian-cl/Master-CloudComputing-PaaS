@@ -25,17 +25,17 @@ $(function () {
 
     // trun.js plugin
 
-    $('#magazine').turn({
-        display:      'double',
-        acceleration: true,
-        gradients:    ! $.isTouch,
-        elevation:    50,
-        when:         {
-            turned: function (e, page) {
-                /*console.log('Current view: ', $(this).turn('view'));*/
-            }
-        }
-    });
+    // $('#magazine').turn({
+    //     display:      'double',
+    //     acceleration: true,
+    //     gradients:    ! $.isTouch,
+    //     elevation:    50,
+    //     when:         {
+    //         turned: function (e, page) {
+    //             /*console.log('Current view: ', $(this).turn('view'));*/
+    //         }
+    //     }
+    // });
 
     $('.leftbutton_js').on('click', function () {
         $("#magazine").turn("previous");

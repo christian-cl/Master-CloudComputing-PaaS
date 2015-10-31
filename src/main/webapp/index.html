@@ -1,34 +1,164 @@
 <!DOCTYPE html>
 
-<html>
-<head>
-    <title>Home</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html ng-app="app">
+    <head>
+        <title>Restaurants</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <link rel="stylesheet" type="text/css" href="styles/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="styles/stylesindex.css"/>
-    
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-</head>
+        <link rel="stylesheet" type="text/css" href="styles/normalize.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+        
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+            
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
+            
+    </head>
 
-<body>
+    <body ng-controller="MainController">
 
-    <a href="pagina-principal.html" id="btn_view"></a>
+        <div ng-show="flag" id="principal">
+            <div class="header">
+                <div class="shade">
+                    <div class="navigation">
+                     <a href="portfolio.html" id="logo"></a>
+                     <ul id="links">
+                        <li ><a class="inverse active" href="index.html">Inicio</a></li>
+                        <li><a class="inverse" href="add-restaurant.html">Añadir  Restaurante</a></li>
+                        <li><a class="inverse" href="contact.html">Contacto</a></li>
+                    </ul>
+                    </div>
+                </div>
+
+                <h1>Restaurantes</h1>
+            </div>
+
+            <div class="content">
+                {{2+4}}
+                 <div>
+                    <div class="left mobilecell">
+                        <div class="cell hover-aware">
+                            <a href="la-trastienda.html"><img class="projects"src="img/portfolio/9.png" width="100%" height="100%"></a>
+                            <div class="hover"> <a href="restaurant-theme.html"> <h6>La Trastienda</h6> junto a la Plaza de Toros de la Malagueta.</a></div>
+                        </div>
+                    
+                        <div class="mobilelink left">
+                            <a class="project_name" href="la-trastienda.html">La Trastienda</a>
+                            <a class="project_category" href="la-trastienda.html"><em>junto a la Plaza de Toros de la Malagueta.</em></a>
+                            <a class="seemore" href="lavazza.html"><em>See more ></em></a>
+                        </div>
+                        
+                        <div class="clear"></div>
+                    </div>
+                
+                
+                    <div class="right mobilecell">
+                
+                        <div class="cell right hover-aware">
+                            <a href="hairsalon-theme.html"><img class="projects" src="img/portfolio/10.png" width="100%" height="100%"></a>
+                            <div class="hover"> <a href="hairsalon-theme.html"><h6>Indian City</h6> a pocos pasos de Puerto Marina.</a></div>
+                        </div>
+                        
+                        <div class="mobilelink left">
+                            <a class="project_name" href="hairsalon-theme.html">Indian City </a>
+                            <a class="project_category" href="hairsalon-theme.html"><em>a pocos pasos de Puerto Marina.</em></a>
+                            <a class="seemore" href="hairsalon-theme.html"><em>See more ></em></a>
+                        </div>
+                        
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                 <div class="clear"></div>
+            </div>
+        </div>
+
+        <div ng-hide="flag" id="restaurante">
+            <div class="header-restaurant-theme">
+                <div class="shade">
+                    <div class="navigation">
+                     <a href="portfolio.html" id="logo"></a>
+                     <ul id="links">
+                        <li><a class="inverse active" href="pagina-principal.html">Inicio</a></li>
+                        <li><a class="inverse" href="eliminar-restaurante.html">Eliminar Restaurante</a></li>
+                        <li><a class="inverse" href="modificar-restaurante.html">Modificar Datos</a></li>
+                        <li><a class="inverse" href="contact.html">Contacto</a></li>
+                    </ul>
+                    </div>
+                </div>
+                
+            <h2>La Trastienda</h2>
+            <h3>Descripción y Características.</h3>
+
+            </div>
+
+            <div class="subheader">
+                <div class="subheadercontent">
+                <div class="webtemplate-rationale webtemplate ">
+                 <a class="project_name" href="la-trastienda.html">La Trastienda</a></div>
+                                <div class="webtemplate-rationale webtemplate ">
+                   Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga. 
+                    </div>
+                                        <div class="webtemplate-rationale webtemplate ">
+                    Email: latrastienda18@gmail.com 
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                    Direccion: Calle Cervantes, nº 10 - Málaga
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                    Teléfono: 951862145
+                    </div>
+                    <div class="webtemplate-rationale webtemplate ">
+                    Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.
+                    </div>
+                </div>
+            </div>
 
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-47171327-1', 'olgav.net');
-        ga('send', 'pageview');
+            <div class="content">
+                <div class="pullquote1 pagename">Imágenes y Localización</div>
+                <img src="img/works/themes/restaurant_02.png"  width="100%"/>
+            </div>
 
-    </script>
 
-</body>
+            <div class="thoughts">
+                <div class=aboutthoughts><q>I come up with concepts that fit in well with the company's image and audience.</q>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <div class="round">
+                <img src="img/getintouch.png" width="114" height="114">
+            </div>
+            <div class="fcolor">
+                <div class="contact">
+                    <a id="email"target="_blank" href="mailto:juan2ag2lu@gmail.com">restaurantes@gmail.com</a>
+                </div>
+                <div class="contact1">
+                    <ul class="sm">
+                        <li><a href="http://www.linkedin.com/pub/restaurant/45/141/145" target="_blank" id="in"></a></li>
+                        <li><a href="http://be.net/restaurant" target="_blank" id="be"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Libs -->
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+
+        <!-- Scripts angular -->
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+
+        <!-- Otros scripts -->
+        <script src="js/index.js"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <!-- <script src="js/map.js"></script> -->
+
+    </body>
 </html>
