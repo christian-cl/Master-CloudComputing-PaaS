@@ -7,11 +7,13 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -110,9 +112,32 @@ public class RestauranteService {
 			e1.setProperty("latitud", r.getLatitud());
 			e1.setProperty("longitud", r.getLongitud());
 			ds.put(e1);
-			return Response.ok("Restaurante agregado correctamente.").build();
+			return Response.status(Status.OK).build();
 		}else{
 			return Response.serverError().build();
+		}
+	}
+	
+	@PUT
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Response updateRestaurante(Restaurante r) {
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
+		Query query = new Query("Restaurante").setFilter(propertyFilter);
+		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
+		if(results.isEmpty()){
+			return Response.serverError().build();
+		}else{
+			Entity e1 = results.get(0);
+			e1.setProperty("nombre", r.getNombre());
+			e1.setProperty("email", r.getNewemail());
+			e1.setProperty("direccion", r.getDireccion());
+			e1.setProperty("telefono", r.getTelefono());
+			e1.setProperty("descripcion",r.getDescripcion());
+			e1.setProperty("latitud", r.getLatitud());
+			e1.setProperty("longitud", r.getLongitud());
+			ds.put(e1);
+			return Response.status(Status.OK).build();
 		}
 	}
 	
@@ -125,7 +150,7 @@ public class RestauranteService {
 		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
 		if(!results.isEmpty()){
 			ds.delete(results.get(0).getKey());
-			return Response.ok("Restaurante eliminado correctamente.").build();
+			return Response.status(Status.OK).build();
 		}else{
 			return Response.serverError().build();
 		}

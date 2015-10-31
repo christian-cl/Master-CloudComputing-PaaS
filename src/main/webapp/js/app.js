@@ -3,9 +3,10 @@ var app = angular.module('app',[]);
 app.controller('MainController', function($scope, RestaurantService) {
 	$scope.section = 1; //1 inicio, 2 añadir restaurante, 3 contacto
 	$scope.area = 0; //0 visualización, 1 modificar datos
-	$scope.flag = true; //true si estamos en modo restaurante
-	$scope.restaurants = {};
-	$scope.restaurant = {};
+	$scope.flag = true; //false si estamos en modo restaurante
+	$scope.restaurants = {}; //Lista de restaurantes
+	$scope.restaurant = {}; //Restaurante seleccionado
+	$scope.newrestaurant = {}; //Nuevo restaurante a añadir
     var rest = [
 	    {
 	        nombre: "El Reservado",
@@ -35,23 +36,75 @@ app.controller('MainController', function($scope, RestaurantService) {
 	        longitud: "37.206546"
 	    }
 	];
-    // RestaurantService.getAll(function(data){
-    // 	$scope.restaurants = data;
-    // });
-	$scope.restaurants = rest; //Para pruebas en modo local
+    RestaurantService.getAll(function(data){
+    	$scope.restaurants = data;
+    });
+	//$scope.restaurants = rest; //Para pruebas en modo local
     
+    $scope.addRestaurant = function(){
+		if($scope.add.$valid){
+			var restaurantAdded = {
+				'nombre':$scope.newrestaurant.nombre,
+				'email':$scope.newrestaurant.email,
+				'direccion':$scope.newrestaurant.direccion,
+				'telefono':$scope.newrestaurant.telefono,
+				'descripcion':$scope.newrestaurant.descripcion,
+				'latitud':'',
+				'longitud':''
+			};
+			RestaurantService.insert(restaurantAdded,function(status){
+				alert('Restaurante añadido correctamente');
+				window.location.href = "index.html";
+			});
+		}else{
+			alert("Algunos campos no se han añadido, revise el formulario");
+		}
+    }
 
     $scope.showRestaurant = function(index){
     	$scope.flag = false;
     	$scope.restaurant = $scope.restaurants[index];
+    	$scope.restaurant.newemail = $scope.restaurant.email;
     }
 
     $scope.removeRestaurant = function(){
     	var r = confirm("¿Seguro quieres eliminar este restaurante?");
     	if(r){
-    		//eliminar restaurante en la API
-    		window.location.href = "index.html";
+    		var restaurantRemoved = {
+				'nombre':$scope.restaurant.nombre,
+				'email':$scope.restaurant.email,
+				'direccion':$scope.restaurant.direccion,
+				'telefono':$scope.restaurant.telefono,
+				'descripcion':$scope.restaurant.descripcion,
+				'latitud':'',
+				'longitud':''
+			};
+    		RestaurantService.delete(restaurantRemoved,function(status){
+    			alert('Restaurante eliminado correctamente');
+				window.location.href = "index.html";
+    		});
     	}
+    }
+
+    $scope.updateRestaurant = function(){
+		if($scope.update.$valid){
+			var restaurantUpdated = {
+				'nombre':$scope.restaurant.nombre,
+				'email':$scope.restaurant.email,
+				'newemail':$scope.restaurant.newemail,
+				'direccion':$scope.restaurant.direccion,
+				'telefono':$scope.restaurant.telefono,
+				'descripcion':$scope.restaurant.descripcion,
+				'latitud':'',
+				'longitud':''
+			};
+			RestaurantService.update(restaurantUpdated,function(status){
+				alert('Restaurante actualizado correctamente');
+				window.location.href = "index.html";
+			});
+		}else{
+			alert("Algunos campos no se han añadido, revise el formulario");
+		}
     }
 });
 

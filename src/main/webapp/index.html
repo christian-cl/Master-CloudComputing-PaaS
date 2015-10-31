@@ -17,11 +17,12 @@
 
     <body ng-controller="MainController">
 
+        <!-- INICIO (Lista de restaurantes, añadir restaurante y contacto) -->
         <div ng-show="flag" id="principal">
             <div class="header">
                 <div class="shade">
                     <div class="navigation">
-                     <a href="portfolio.html" id="logo"></a>
+                     <a href="index.html" id="logo"></a>
                      <ul id="links">
                         <li><a class="inverse" ng-class="{active: section===1}" href="#" ng-click="section=1">Inicio</a></li>
                         <li><a class="inverse" ng-class="{active: section===2}" href="#" ng-click="section=2">Añadir  Restaurante</a></li>
@@ -31,6 +32,7 @@
                 </div>
                 <h1>Restaurantes</h1>
             </div>
+            <!-- Lista de restaurantes-->
             <div class="content" ng-show="section===1">
                  <div ng-repeat="restaurant in restaurants" reload>
                     <div ng-if="$even" class="left mobilecell" ng-click="showRestaurant($index);">
@@ -40,7 +42,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div ng-if="$even && $index+1<restaurants.length" class="right mobilecell" ng-click="showRestaurant($index);">
+                    <div ng-if="$even && $index+1<restaurants.length" class="right mobilecell" ng-click="showRestaurant($index+1);">
                         <div class="cell right hover-aware">
                             <a href="#"><img class="projects" src="img/portfolio/10.png" width="100%" height="100%"></a>
                             <div class="hover"> <a href="#"><h6>{{restaurants[$index+1].nombre}}</h6>{{restaurants[$index+1].descripcion}}</a></div>
@@ -50,26 +52,27 @@
                 </div>
                  <div class="clear"></div>
             </div>
+            <!-- Añadir restaurante-->
             <div class="content" ng-show="section===2">
                 <div id="form-container" class="row">
-                        <form class="form-horizontal">
+                        <form name="add" class="form-horizontal" ng-submit="addRestaurant()" novalidate>
                           <div class="col-md-6 sender-info">
                               <div class="form-group">
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Restaurante" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Restaurante" ng-model="newrestaurant.nombre" style="width: 231px; " required/>
                               </div>
                               <div class="form-group ">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" style="width: 231px; "/>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="newrestaurant.email" style="width: 231px; " required/>
                               </div>
                               <div class="form-group">
-                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" ng-model="newrestaurant.direccion" style="width: 231px; " required/>
                               </div>
                               <div class="form-group">
-                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono de Contacto" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono de Contacto" ng-model="newrestaurant.telefono" style="width: 231px; " required/>
                               </div>
                           </div>
                           <div class="col-md-6 message">
                             <div class="form-group">
-                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion aquí" style="width: 228px; "></textarea>
+                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion aquí" ng-model="newrestaurant.descripcion" style="width: 228px; " required></textarea>
                             </div>
                           </div>
                           <div class="form-group">
@@ -80,6 +83,7 @@
                       </form>
                </div>
             </div>
+            <!-- Contacto-->
             <div id="content_contact" class="content" ng-show="section===3">
                 <div class="box">
                     <h5>get in touch</h5>
@@ -102,11 +106,12 @@
             </div>
         </div>
 
+        <!-- MODO RESTAURANTE (Visualización, modificación y eliminación) -->
         <div ng-hide="flag" id="restaurante">
             <div class="header-restaurant-theme">
                 <div class="shade">
                     <div class="navigation">
-                     <a href="portfolio.html" id="logo"></a>
+                     <a href="index.html" id="logo"></a>
                      <ul id="links">
                         <li><a class="inverse" href="index.html">Inicio</a></li>
                         <li><a class="inverse" ng-class="{active: area===1}" href="#" ng-click="area=1">Modificar Datos</a></li>
@@ -117,7 +122,7 @@
                 <h2>{{restaurant.nombre}}</h2>
                 <h3>{{restaurant.descripcion}}</h3>
             </div>
-
+            <!-- Visualización del restaurante -->
             <div class="subheader" ng-show="area===0">
                 <div class="subheadercontent">
                 <div class="webtemplate-rationale webtemplate ">
@@ -136,34 +141,34 @@
                     </div>
                 </div>
             </div>
+            <!-- Modificación del restaurante -->
             <div class="content" ng-show="area===1">
                 <div id="form-container" class="row">
-                    <form class="form-horizontal">
+                    <form name="update" class="form-horizontal" ng-submit="updateRestaurant()" novalidate>
                           <div class="col-md-6 sender-info">
                             Nombre<br />
                             <div class="form-group">
-                                <input type="text" class="form-control" id="nombre" name="nombre" ng-model="restaurant.nombre" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="nombre" name="nombre" ng-model="restaurant.nombre" style="width: 231px; " required/>
                             </div>
                             <div class="form-group ">
                                 Email<br />
-                                <input type="email" class="form-control" id="email" name="email" ng-model="restaurant.email" style="width: 231px; ">
+                                <input type="email" class="form-control" id="email" name="email" ng-model="restaurant.newemail" style="width: 231px; "required>
                             </div>
                             <div class="form-group">
                                 Dirección <br />
-                                <input type="text" class="form-control" id="direccion" name="direccion" ng-model="restaurant.direccion" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="direccion" name="direccion" ng-model="restaurant.direccion" style="width: 231px; "required/>
                             </div>
                             <div class="form-group">
                                 Teléfono <br />
-                                <input type="text" class="form-control" id="telefono" name="telefono" ng-model="restaurant.telefono" style="width: 231px; "/>
+                                <input type="text" class="form-control" id="telefono" name="telefono" ng-model="restaurant.telefono" style="width: 231px; "required/>
                             </div>
                         </div>
                         Descripción<br />
                         <div class="col-md-6 message">
                             <div class="form-group">
-                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" ng-model="restaurant.descripcion" style="width: 228px; "></textarea>
+                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" ng-model="restaurant.descripcion" style="width: 228px; "required></textarea>
                             </div>
                         </div>
-
                         <div class="form-group">
                           <div class="col-md-6">
                               <button type="submit" value="Submit" class="btn btn-default btn-lg pull-right">Modificar Datos del Restaurante</button>
@@ -174,7 +179,7 @@
             </div>
         </div>
 
-
+        <!-- FOOTER -->
         <div class="footer">
             <div class="round">
                 <img src="img/getintouch.png" width="114" height="114">

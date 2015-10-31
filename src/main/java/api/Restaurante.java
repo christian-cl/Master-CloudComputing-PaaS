@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		private String nombre, email, direccion, telefono, descripcion, latitud, longitud;
+		private String nombre, email, direccion, telefono, descripcion, latitud, longitud, newemail="";
 		public Restaurante(){}
 		public Restaurante(String nombre, String email, String direccion, String telefono,
 				String descripcion, String latitud, String longitud) {
@@ -67,5 +67,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 		}
 		public void setLongitud(String longitud) {
 			this.longitud = longitud;
+		}
+		public String getNewemail() {
+			return newemail;
+		}
+		public void setNewemail(String newemail) {
+			this.newemail = newemail;
 		}
 	}
