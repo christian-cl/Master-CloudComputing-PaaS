@@ -13,7 +13,6 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">
             
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
-            
     </head>
 
     <body ng-controller="MainController">
@@ -24,52 +23,82 @@
                     <div class="navigation">
                      <a href="portfolio.html" id="logo"></a>
                      <ul id="links">
-                        <li ><a class="inverse active" href="index.html">Inicio</a></li>
-                        <li><a class="inverse" href="add-restaurant.html">Añadir  Restaurante</a></li>
-                        <li><a class="inverse" href="contact.html">Contacto</a></li>
+                        <li><a class="inverse" ng-class="{active: section===1}" href="#" ng-click="section=1">Inicio</a></li>
+                        <li><a class="inverse" ng-class="{active: section===2}" href="#" ng-click="section=2">Añadir  Restaurante</a></li>
+                        <li><a class="inverse" ng-class="{active: section===3}" href="#" ng-click="section=3">Contacto</a></li>
                     </ul>
                     </div>
                 </div>
-
                 <h1>Restaurantes</h1>
             </div>
-
-            <div class="content">
-                {{2+4}}
-                 <div>
-                    <div class="left mobilecell">
+            <div class="content" ng-show="section===1">
+                 <div ng-repeat="restaurant in restaurants" reload>
+                    <div ng-if="$even" class="left mobilecell" ng-click="showRestaurant($index);">
                         <div class="cell hover-aware">
-                            <a href="la-trastienda.html"><img class="projects"src="img/portfolio/9.png" width="100%" height="100%"></a>
-                            <div class="hover"> <a href="restaurant-theme.html"> <h6>La Trastienda</h6> junto a la Plaza de Toros de la Malagueta.</a></div>
+                            <a href="#"><img class="projects"src="img/portfolio/9.png" width="100%" height="100%"></a>
+                            <div class="hover"> <a href="#"> <h6>{{restaurants[$index].nombre}}</h6>{{restaurants[$index].descripcion}}</a></div>
                         </div>
-                    
-                        <div class="mobilelink left">
-                            <a class="project_name" href="la-trastienda.html">La Trastienda</a>
-                            <a class="project_category" href="la-trastienda.html"><em>junto a la Plaza de Toros de la Malagueta.</em></a>
-                            <a class="seemore" href="lavazza.html"><em>See more ></em></a>
-                        </div>
-                        
                         <div class="clear"></div>
                     </div>
-                
-                
-                    <div class="right mobilecell">
-                
+                    <div ng-if="$even && $index+1<restaurants.length" class="right mobilecell" ng-click="showRestaurant($index);">
                         <div class="cell right hover-aware">
-                            <a href="hairsalon-theme.html"><img class="projects" src="img/portfolio/10.png" width="100%" height="100%"></a>
-                            <div class="hover"> <a href="hairsalon-theme.html"><h6>Indian City</h6> a pocos pasos de Puerto Marina.</a></div>
+                            <a href="#"><img class="projects" src="img/portfolio/10.png" width="100%" height="100%"></a>
+                            <div class="hover"> <a href="#"><h6>{{restaurants[$index+1].nombre}}</h6>{{restaurants[$index+1].descripcion}}</a></div>
                         </div>
-                        
-                        <div class="mobilelink left">
-                            <a class="project_name" href="hairsalon-theme.html">Indian City </a>
-                            <a class="project_category" href="hairsalon-theme.html"><em>a pocos pasos de Puerto Marina.</em></a>
-                            <a class="seemore" href="hairsalon-theme.html"><em>See more ></em></a>
-                        </div>
-                        
                         <div class="clear"></div>
                     </div>
                 </div>
                  <div class="clear"></div>
+            </div>
+            <div class="content" ng-show="section===2">
+                <div id="form-container" class="row">
+                        <form class="form-horizontal">
+                          <div class="col-md-6 sender-info">
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Restaurante" style="width: 231px; "/>
+                              </div>
+                              <div class="form-group ">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" style="width: 231px; "/>
+                              </div>
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" style="width: 231px; "/>
+                              </div>
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono de Contacto" style="width: 231px; "/>
+                              </div>
+                          </div>
+                          <div class="col-md-6 message">
+                            <div class="form-group">
+                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion aquí" style="width: 228px; "></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-md-6">
+                                  <button type="submit" value="Submit" class="btn btn-default btn-lg pull-right">Send</button>
+                              </div>
+                          </div>
+                      </form>
+               </div>
+            </div>
+            <div id="content_contact" class="content" ng-show="section===3">
+                <div class="box">
+                    <h5>get in touch</h5>
+                    <div class="contacticons">
+                        <a href="mailto:juan2ag2lu@gmail.com"><img class="left" src="img/contact/mail.png" width="45" /></a>
+                        <a class="contactinfa" target="_blank" href="mailto:juan2ag2lu@gmail.com">restaurantes@gmail.com</a>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="contacticons">
+                        <a href="http://www.linkedin.com/pub/restaurantes/45/141/145" target="_blank"><img class="left" src="img/contact/in.png" width="45" /></a>
+                        <div class="contactin"><a class="contactinfa" href="http://www.linkedin.com/pub/restaurant/45/141/145" target="_blank">see my resume</a></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="contacticons">
+                        <a href="http://be.net/restaurant" target="_blank"><img class="left" src="img/contact/be.png" width="45" /></a>
+                       <div class="contactin"><a class="contactinfa" href="http://be.net/restaurant" target="_blank">check my other works</a></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -79,53 +108,69 @@
                     <div class="navigation">
                      <a href="portfolio.html" id="logo"></a>
                      <ul id="links">
-                        <li><a class="inverse active" href="pagina-principal.html">Inicio</a></li>
-                        <li><a class="inverse" href="eliminar-restaurante.html">Eliminar Restaurante</a></li>
-                        <li><a class="inverse" href="modificar-restaurante.html">Modificar Datos</a></li>
-                        <li><a class="inverse" href="contact.html">Contacto</a></li>
+                        <li><a class="inverse" href="index.html">Inicio</a></li>
+                        <li><a class="inverse" ng-class="{active: area===1}" href="#" ng-click="area=1">Modificar Datos</a></li>
+                        <li><a class="inverse" ng-class="{active: area===2}" href="#" ng-click="removeRestaurant();">Eliminar Restaurante</a></li>
                     </ul>
                     </div>
                 </div>
-                
-            <h2>La Trastienda</h2>
-            <h3>Descripción y Características.</h3>
-
+                <h2>{{restaurant.nombre}}</h2>
+                <h3>{{restaurant.descripcion}}</h3>
             </div>
 
-            <div class="subheader">
+            <div class="subheader" ng-show="area===0">
                 <div class="subheadercontent">
                 <div class="webtemplate-rationale webtemplate ">
-                 <a class="project_name" href="la-trastienda.html">La Trastienda</a></div>
+                 <a class="project_name" href="la-trastienda.html">{{restaurant.nombre}}</a></div>
                                 <div class="webtemplate-rationale webtemplate ">
-                   Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga. 
+                   {{restaurant.descripcion}}
                     </div>
                                         <div class="webtemplate-rationale webtemplate ">
-                    Email: latrastienda18@gmail.com 
+                    {{restaurant.email}}
                     </div>
                     <div class="webtemplate-rationale webtemplate ">
-                    Direccion: Calle Cervantes, nº 10 - Málaga
+                    {{restaurant.direccion}}
                     </div>
                     <div class="webtemplate-rationale webtemplate ">
-                    Teléfono: 951862145
-                    </div>
-                    <div class="webtemplate-rationale webtemplate ">
-                    Descripción: El Restaurante La Trastienda se encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.
+                    {{restaurant.telefono}}
                     </div>
                 </div>
             </div>
+            <div class="content" ng-show="area===1">
+                <div id="form-container" class="row">
+                    <form class="form-horizontal">
+                          <div class="col-md-6 sender-info">
+                            Nombre<br />
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="nombre" name="nombre" ng-model="restaurant.nombre" style="width: 231px; "/>
+                            </div>
+                            <div class="form-group ">
+                                Email<br />
+                                <input type="email" class="form-control" id="email" name="email" ng-model="restaurant.email" style="width: 231px; ">
+                            </div>
+                            <div class="form-group">
+                                Dirección <br />
+                                <input type="text" class="form-control" id="direccion" name="direccion" ng-model="restaurant.direccion" style="width: 231px; "/>
+                            </div>
+                            <div class="form-group">
+                                Teléfono <br />
+                                <input type="text" class="form-control" id="telefono" name="telefono" ng-model="restaurant.telefono" style="width: 231px; "/>
+                            </div>
+                        </div>
+                        Descripción<br />
+                        <div class="col-md-6 message">
+                            <div class="form-group">
+                                <textarea rows="6" class="form-control" id="descripcion" name="descripcion" ng-model="restaurant.descripcion" style="width: 228px; "></textarea>
+                            </div>
+                        </div>
 
-
-
-            <div class="content">
-                <div class="pullquote1 pagename">Imágenes y Localización</div>
-                <img src="img/works/themes/restaurant_02.png"  width="100%"/>
-            </div>
-
-
-            <div class="thoughts">
-                <div class=aboutthoughts><q>I come up with concepts that fit in well with the company's image and audience.</q>
-                </div>
-
+                        <div class="form-group">
+                          <div class="col-md-6">
+                              <button type="submit" value="Submit" class="btn btn-default btn-lg pull-right">Modificar Datos del Restaurante</button>
+                          </div>
+                      </div>
+                  </form>
+               </div>
             </div>
         </div>
 
