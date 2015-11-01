@@ -141,7 +141,8 @@ public class RestauranteService {
 		}
 	}
 	
-	@DELETE
+	@POST
+	@Path("/delete")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response removeRestaurante(Restaurante r) {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();

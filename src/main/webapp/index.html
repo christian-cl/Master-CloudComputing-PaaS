@@ -37,7 +37,7 @@
                 <h1>Restaurantes</h1>
             </div>
             <!-- Lista de restaurantes-->
-            <div class="content" ng-show="section===1">
+            <div class="content" ng-show="section===1 && restaurants.length>0">
                  <div ng-repeat="restaurant in restaurants" reload>
                     <div ng-if="$even" class="left mobilecell" ng-click="showRestaurant($index);">
                         <div class="cell hover-aware">
@@ -56,7 +56,10 @@
                 </div>
                  <div class="clear"></div>
             </div>
-            <div class="content" id="map" ng-show="section===1"></div>
+            <div class="content" id="map" ng-show="section===1 && restaurants.length>0"></div>
+            <div class="content" ng-show="section==1 && restaurants.length==0">
+                No hay aún ningún restaurante añadido.
+            </div>
             <!-- Añadir restaurante-->
             <div class="content" ng-show="section===2">
                 <div id="form-container" class="row">

@@ -62,10 +62,9 @@ function RestaurantService($http) {
 
     function Delete(restaurant, callback) {
         $http({
-            method: 'DELETE',
-            url: baseUrl,
-            data: restaurant,
-            headers: {"Content-Type": "application/json;charset=utf-8"}
+            method: 'POST',
+            url: baseUrl+'/delete',
+            data: restaurant
         })
         .success(function (data, status, headers, config) {
             callback(status);
