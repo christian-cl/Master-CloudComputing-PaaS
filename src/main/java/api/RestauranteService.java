@@ -40,8 +40,8 @@ public class RestauranteService {
 		e1.setProperty("telefono", "951862145");
 		e1.setProperty("descripcion", "El Restaurante La Trastienda se "
 				+ "encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.");
-		e1.setProperty("latitud", "37.206546");
-		e1.setProperty("longitud", "37.206546");
+		e1.setProperty("latitud", "37.046567");
+		e1.setProperty("longitud", "-5.015616");
 		Entity e2 = new Entity("Restaurante");
 		e2.setProperty("nombre", "El Reservado");
 		e2.setProperty("email", "elreservado46@gmail.com");
@@ -52,7 +52,7 @@ public class RestauranteService {
 		e2.setProperty("longitud", "-4.255078");
 		Entity e3 = new Entity("Restaurante");
 		e3.setProperty("nombre", "Indian City");
-		e3.setProperty("email", "indiancity76@gmail,com");
+		e3.setProperty("email", "indiancity76@gmail.com");
 		e3.setProperty("direccion", "Avenida Antonio Machado, 44-46, 29630 Benalmádena, Málaga, España - Benalmádena");
 		e3.setProperty("telefono", "951234951");
 		e3.setProperty("descripcion", "El exótico Restaurante Indian City está situado en Benalmádena, Málaga, un enclave único para disfrutar del buen tiempo de la Costa del Sol, "

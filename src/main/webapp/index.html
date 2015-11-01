@@ -24,7 +24,7 @@
             <div class="header">
                 <div class="shade">
                     <div class="navigation">
-                     <a href="index.html" id="logo"></a>
+                     <a href="#" id="logo" ng-click="showRestaurantsList();"></a>
                      <img class="avatar" ng-show="logged" ng-click="signOut()">
                      <ul id="links">
                         <li><a class="inverse" ng-class="{active: section===1}" href="#" ng-click="section=1">Inicio</a></li>
@@ -56,6 +56,7 @@
                 </div>
                  <div class="clear"></div>
             </div>
+            <div class="content" id="map" ng-show="section===1"></div>
             <!-- Añadir restaurante-->
             <div class="content" ng-show="section===2">
                 <div id="form-container" class="row">
@@ -73,6 +74,12 @@
                               <div class="form-group">
                                 <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono de Contacto" ng-model="newrestaurant.telefono" style="width: 231px; " required/>
                               </div>
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="latitud" name="latitud" placeholder="Latitud" ng-model="newrestaurant.latitud" style="width: 231px; " readonly="true" required/>
+                              </div>
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="longitud" name="longitud" placeholder="Longitud" ng-model="newrestaurant.longitud" style="width: 231px; " readonly="true" required/>
+                              </div>
                           </div>
                           <div class="col-md-6 message">
                             <div class="form-group">
@@ -87,6 +94,7 @@
                       </form>
                </div>
             </div>
+            <div class="content" id="selectorMap" ng-show="section===2"></div>
             <!-- Contacto-->
             <div id="content_contact" class="content" ng-show="section===3">
                 <div class="box">
@@ -115,7 +123,7 @@
             <div class="header-restaurant-theme">
                 <div class="shade">
                     <div class="navigation">
-                     <a href="index.html" id="logo"></a>
+                     <a href="#" id="logo" ng-click="showRestaurantsList();"></a>
                      <img class="avatar" ng-show="logged" ng-click="signOut()">
                      <ul id="links">
                         <li><a class="inverse" href="#" ng-click="showRestaurantsList();">Inicio</a></li>
@@ -147,6 +155,7 @@
                     </div>
                 </div>
             </div>
+            <div class="content" id="infoMap" ng-show="area===0"></div>
             <!-- Modificación del restaurante -->
             <div class="content" ng-show="area===1">
                 <div id="form-container" class="row">
@@ -168,6 +177,14 @@
                                 Teléfono <br />
                                 <input type="text" class="form-control" id="telefono" name="telefono" ng-model="restaurant.telefono" style="width: 231px; "required/>
                             </div>
+                            <div class="form-group">
+                                Latitud <br />
+                                <input type="text" class="form-control" id="latitud" name="latitud" placeholder="Latitud" ng-model="restaurant.latitud" style="width: 231px; " readonly="true" required/>
+                              </div>
+                              <div class="form-group">
+                                Longitud <br />
+                                <input type="text" class="form-control" id="longitud" name="longitud" placeholder="Longitud" ng-model="restaurant.longitud" style="width: 231px; " readonly="true" required/>
+                              </div>
                         </div>
                         Descripción<br />
                         <div class="col-md-6 message">
@@ -183,6 +200,7 @@
                   </form>
                </div>
             </div>
+            <div class="content" id="updateMap" ng-show="area===1"></div>
         </div>
 
         <!-- FOOTER -->

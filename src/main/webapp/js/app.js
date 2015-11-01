@@ -9,7 +9,10 @@ app.controller('MainController', function($scope, RestaurantService) {
 	$scope.newrestaurant = {}; //Nuevo restaurante a añadir
 	$scope.googleUser = {}; //Usuario loggeado
     $scope.logged = false; //True si se ha iniciado sesión
-    var rest = [
+    $scope.marker = false; //Apunta a la posición del nuevo restaurante
+    $scope.updateMarker = false; //Apunta a la posición del restaurante modificado
+    $scope.changed = false; //True cada vez que se añade, modifica o elimina un restaurante (para recargar el mapa principal)
+    var rests = [
 	    {
 	        nombre: "El Reservado",
 	        email: "elreservado46@gmail.com",
@@ -40,9 +43,91 @@ app.controller('MainController', function($scope, RestaurantService) {
 	];
     RestaurantService.getAll(function(data){
     	$scope.restaurants = data;
+    	$scope.setMap();
+		$scope.setSelectorMap();
     });
-	//$scope.restaurants = rest; //Para pruebas en modo local
-    
+	//$scope.restaurants = rests; //Para pruebas en modo local
+
+	$scope.setMap=function(){
+		$scope.map = new google.maps.Map(document.getElementById('map'), {
+		    center: {lat: 36.711622, lng: -4.420445},
+		    zoom: 8
+		  });
+		$scope.restaurants.forEach(function(rest){
+			var marker = new google.maps.Marker({
+    			position: new google.maps.LatLng(rest.latitud, rest.longitud),
+    			map: $scope.map,
+    			title: rest.nombre
+    		});
+    		var infowindow = new google.maps.InfoWindow({
+    			content: "<span>"+rest.nombre+"</span>"
+    		});
+    		google.maps.event.addListener(marker, 'click', function() {
+    			infowindow.open($scope.map,marker);
+    		});
+		})
+	}
+	$scope.setSelectorMap=function(){
+		$scope.selMap = new google.maps.Map(document.getElementById('selectorMap'), {
+		    center: {lat: 36.711622, lng: -4.420445},
+		    zoom: 8
+		  });
+		google.maps.event.addListener($scope.selMap, 'click', function(event) {                
+	        var clickedLocation = event.latLng;
+	        if($scope.marker === false){
+	            $scope.marker = new google.maps.Marker({
+	                position: clickedLocation,
+	                map: $scope.selMap,
+	            });
+	        } else{
+	            $scope.marker.setPosition(clickedLocation);
+	        }
+	        $scope.newrestaurant.latitud = $scope.marker.getPosition().lat();
+	        $scope.newrestaurant.longitud = $scope.marker.getPosition().lng();
+	        $scope.$apply();
+	    });
+	}
+	$scope.$watch('section', function () {
+		if($scope.section == 2) {
+			window.setTimeout(function(){
+	        	google.maps.event.trigger($scope.selMap, 'resize');
+	        	$scope.selMap.setCenter(new google.maps.LatLng(36.711622, -4.420445));
+	        },100);
+		}
+    });
+    $scope.$watch('flag', function () {
+		if(!$scope.flag) {
+			window.setTimeout(function(){
+	        	google.maps.event.trigger($scope.infoMap, 'resize');
+	        	$scope.infoMap.setCenter(new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud));
+	        },100);
+		}
+    });
+    $scope.$watch('changed',function(){
+    	if($scope.changed){
+    		window.setTimeout(function(){
+	        	google.maps.event.trigger($scope.map, 'resize');
+	        	$scope.map.setCenter(new google.maps.LatLng(36.711622, -4.420445));
+	        },100);
+	        $scope.changed=false;
+    	}
+    })
+    $scope.$watch('area', function () {
+		if($scope.area == 0 && !$scope.flag) {
+			window.setTimeout(function(){
+	        	google.maps.event.trigger($scope.infoMap, 'resize');
+	        	$scope.infoMap.setCenter(new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud));
+	        },100);
+		}
+    });
+    $scope.$watch('area', function () {
+		if($scope.area == 1) {
+			window.setTimeout(function(){
+	        	google.maps.event.trigger($scope.updateMap, 'resize');
+	        	$scope.updateMap.setCenter(new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud));
+	        },100);
+		}
+    });
     $scope.addRestaurant = function(){
 		if($scope.add.$valid){
 			var restaurantAdded = {
@@ -51,13 +136,15 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'direccion':$scope.newrestaurant.direccion,
 				'telefono':$scope.newrestaurant.telefono,
 				'descripcion':$scope.newrestaurant.descripcion,
-				'latitud':'',
-				'longitud':''
+				'latitud':$scope.newrestaurant.latitud,
+				'longitud':$scope.newrestaurant.longitud
 			};
 			RestaurantService.insert(restaurantAdded,function(status){
 				RestaurantService.getAll(function(data){
 			    	$scope.restaurants = data;
 			    	alert('Restaurante añadido correctamente');
+			    	$scope.newrestaurant = {};
+			    	$scope.marker = false;
 					$scope.showRestaurantsList();
 			    });
 			});
@@ -69,11 +156,56 @@ app.controller('MainController', function($scope, RestaurantService) {
     	$scope.flag = false;
     	$scope.restaurant = $scope.restaurants[index];
     	$scope.restaurant.newemail = $scope.restaurant.email;
+    	$scope.infoMap = new google.maps.Map(document.getElementById('infoMap'), {
+		    center: {lat: parseInt($scope.restaurant.latitud), lng: parseInt($scope.restaurant.longitud)},
+		    zoom: 8
+		  });
+    	var marker = new google.maps.Marker({
+			position: new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud),
+			map: $scope.infoMap,
+			title: $scope.restaurant.nombre
+		});
+		$scope.updateMap = new google.maps.Map(document.getElementById('updateMap'), {
+		    center: {lat: parseInt($scope.restaurant.latitud), lng: parseInt($scope.restaurant.longitud)},
+		    zoom: 8
+		  });
+    	var marker2 = new google.maps.Marker({
+			position: new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud),
+			map: $scope.updateMap,
+			title: $scope.restaurant.nombre
+		});
+		google.maps.event.addListener($scope.updateMap, 'click', function(event) {                
+	        var clickedLocation = event.latLng;
+	        marker2.setMap(null);
+	        if($scope.updateMarker === false){
+	            $scope.updateMarker = new google.maps.Marker({
+	                position: clickedLocation,
+	                map: $scope.updateMap,
+	            });
+	        } else{
+	            $scope.updateMarker.setPosition(clickedLocation);
+	        }
+	        $scope.restaurant.latitud = $scope.updateMarker.getPosition().lat();
+	        $scope.restaurant.longitud = $scope.updateMarker.getPosition().lng();
+	        $scope.$apply();
+	    });
     }
-    $scope.showRestaurantsList = function(index){
-    	$scope.section = 1;
-		$scope.area = 0;
-    	$scope.flag = true;
+    $scope.showRestaurantsList = function(){
+    	if($scope.area==1 && !$scope.flag){
+    		RestaurantService.getAll(function(data){
+		    	$scope.restaurants = data;
+		    	$scope.setMap();
+		    	$scope.section = 1;
+				$scope.area = 0;
+		    	$scope.flag = true;
+		    });
+    	}else{
+    		$scope.setMap();
+	    	$scope.section = 1;
+			$scope.area = 0;
+	    	$scope.flag = true;
+    	}
+    	$scope.changed=true;
     }
     $scope.removeRestaurant = function(){
     	var r = confirm("¿Seguro quieres eliminar este restaurante?");
@@ -84,8 +216,8 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'direccion':$scope.restaurant.direccion,
 				'telefono':$scope.restaurant.telefono,
 				'descripcion':$scope.restaurant.descripcion,
-				'latitud':'',
-				'longitud':''
+				'latitud':$scope.restaurant.latitud,
+				'longitud':$scope.restaurant.longitud
 			};
     		RestaurantService.delete(restaurantRemoved,function(status){
     			RestaurantService.getAll(function(data){
@@ -106,13 +238,23 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'direccion':$scope.restaurant.direccion,
 				'telefono':$scope.restaurant.telefono,
 				'descripcion':$scope.restaurant.descripcion,
-				'latitud':'',
-				'longitud':''
+				'latitud':$scope.restaurant.latitud,
+				'longitud':$scope.restaurant.longitud
 			};
 			RestaurantService.update(restaurantUpdated,function(status){
 				RestaurantService.getAll(function(data){
 			    	$scope.restaurants = data;
 			    	alert('Restaurante actualizado correctamente');
+			    	$scope.infoMap = new google.maps.Map(document.getElementById('infoMap'), {
+					    center: {lat: parseInt($scope.restaurant.latitud), lng: parseInt($scope.restaurant.longitud)},
+					    zoom: 8
+					  });
+			    	var marker = new google.maps.Marker({
+						position: new google.maps.LatLng($scope.restaurant.latitud, $scope.restaurant.longitud),
+						map: $scope.infoMap,
+						title: $scope.restaurant.nombre
+					});
+					$scope.updateMarker = false;
 			    	$scope.restaurant.email=$scope.restaurant.newemail;
 					$scope.area = 0;
 			    });

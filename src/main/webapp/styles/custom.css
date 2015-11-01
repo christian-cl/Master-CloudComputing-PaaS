@@ -5,3 +5,9 @@
     display: inline-block;
     vertical-align: center;
 }
+
+#map, #selectorMap, #infoMap, #updateMap { height: 400px; }
+
+#infoMap {
+	margin-top: 20px;
+}

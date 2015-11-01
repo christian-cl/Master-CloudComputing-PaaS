@@ -37,25 +37,25 @@ $(function () {
     //     }
     // });
 
-    $('.leftbutton_js').on('click', function () {
-        $("#magazine").turn("previous");
-    });
+    // $('.leftbutton_js').on('click', function () {
+    //     $("#magazine").turn("previous");
+    // });
 
-    $('.rightbutton_js').on('click', function () {
-        $("#magazine").turn("next");
-    });
+    // $('.rightbutton_js').on('click', function () {
+    //     $("#magazine").turn("next");
+    // });
 
-    $(document).keydown(function (e) {
-        // left
-        if (e.keyCode == 37) {
-            $("#magazine").turn("previous");
-            e.preventDefault();
-            return false;
-        } else if (e.keyCode == 39) {
-            $("#magazine").turn("next");
-            e.preventDefault();
-            return false;
-        }
-    });
+    // $(document).keydown(function (e) {
+    //     // left
+    //     if (e.keyCode == 37) {
+    //         $("#magazine").turn("previous");
+    //         e.preventDefault();
+    //         return false;
+    //     } else if (e.keyCode == 39) {
+    //         $("#magazine").turn("next");
+    //         e.preventDefault();
+    //         return false;
+    //     }
+    // });
 
 });
