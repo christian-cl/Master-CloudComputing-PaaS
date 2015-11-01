@@ -28,6 +28,7 @@ app.controller('MainController', function($scope, RestaurantService) {
     	}else{
     	//En caso contrario, cambia los flags para volver al inicio
     		$scope.setMap();
+    		$scope.setSelectorMap();
 	    	$scope.section = 1;
 			$scope.area = 0;
 	    	$scope.flag = true;
