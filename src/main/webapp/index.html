@@ -8,11 +8,13 @@
 
         <link rel="stylesheet" type="text/css" href="styles/normalize.css"/>
         <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/custom.css">
         
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
             
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
+        <script src="https://apis.google.com/js/api:client.js"></script>
     </head>
 
     <body ng-controller="MainController">
@@ -23,10 +25,12 @@
                 <div class="shade">
                     <div class="navigation">
                      <a href="index.html" id="logo"></a>
+                     <img class="avatar" ng-show="logged" ng-click="signOut()">
                      <ul id="links">
                         <li><a class="inverse" ng-class="{active: section===1}" href="#" ng-click="section=1">Inicio</a></li>
                         <li><a class="inverse" ng-class="{active: section===2}" href="#" ng-click="section=2">Añadir  Restaurante</a></li>
                         <li><a class="inverse" ng-class="{active: section===3}" href="#" ng-click="section=3">Contacto</a></li>
+                        <li><a id="login1" class="inverse" ng-hide="logged" href="#">Login</a></li>
                     </ul>
                     </div>
                 </div>
@@ -55,7 +59,7 @@
             <!-- Añadir restaurante-->
             <div class="content" ng-show="section===2">
                 <div id="form-container" class="row">
-                        <form name="add" class="form-horizontal" ng-submit="addRestaurant()" novalidate>
+                        <form name="add" class="form-horizontal" ng-submit="addRestaurant()" style="text-align: center;" novalidate>
                           <div class="col-md-6 sender-info">
                               <div class="form-group">
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Restaurante" ng-model="newrestaurant.nombre" style="width: 231px; " required/>
@@ -112,10 +116,12 @@
                 <div class="shade">
                     <div class="navigation">
                      <a href="index.html" id="logo"></a>
+                     <img class="avatar" ng-show="logged" ng-click="signOut()">
                      <ul id="links">
-                        <li><a class="inverse" href="index.html">Inicio</a></li>
+                        <li><a class="inverse" href="#" ng-click="showRestaurantsList();">Inicio</a></li>
                         <li><a class="inverse" ng-class="{active: area===1}" href="#" ng-click="area=1">Modificar Datos</a></li>
                         <li><a class="inverse" ng-class="{active: area===2}" href="#" ng-click="removeRestaurant();">Eliminar Restaurante</a></li>
+                        <li><a id="login2" class="inverse" ng-hide="logged" href="#">Login</a></li>
                     </ul>
                     </div>
                 </div>
@@ -144,7 +150,7 @@
             <!-- Modificación del restaurante -->
             <div class="content" ng-show="area===1">
                 <div id="form-container" class="row">
-                    <form name="update" class="form-horizontal" ng-submit="updateRestaurant()" novalidate>
+                    <form name="update" class="form-horizontal" ng-submit="updateRestaurant()" style="text-align: center;" novalidate>
                           <div class="col-md-6 sender-info">
                             Nombre<br />
                             <div class="form-group">

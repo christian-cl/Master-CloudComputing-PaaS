@@ -7,6 +7,8 @@ app.controller('MainController', function($scope, RestaurantService) {
 	$scope.restaurants = {}; //Lista de restaurantes
 	$scope.restaurant = {}; //Restaurante seleccionado
 	$scope.newrestaurant = {}; //Nuevo restaurante a añadir
+	$scope.googleUser = {}; //Usuario loggeado
+    $scope.logged = false; //True si se ha iniciado sesión
     var rest = [
 	    {
 	        nombre: "El Reservado",
@@ -53,20 +55,26 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'longitud':''
 			};
 			RestaurantService.insert(restaurantAdded,function(status){
-				alert('Restaurante añadido correctamente');
-				window.location.href = "index.html";
+				RestaurantService.getAll(function(data){
+			    	$scope.restaurants = data;
+			    	alert('Restaurante añadido correctamente');
+					$scope.showRestaurantsList();
+			    });
 			});
 		}else{
 			alert("Algunos campos no se han añadido, revise el formulario");
 		}
     }
-
     $scope.showRestaurant = function(index){
     	$scope.flag = false;
     	$scope.restaurant = $scope.restaurants[index];
     	$scope.restaurant.newemail = $scope.restaurant.email;
     }
-
+    $scope.showRestaurantsList = function(index){
+    	$scope.section = 1;
+		$scope.area = 0;
+    	$scope.flag = true;
+    }
     $scope.removeRestaurant = function(){
     	var r = confirm("¿Seguro quieres eliminar este restaurante?");
     	if(r){
@@ -80,8 +88,11 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'longitud':''
 			};
     		RestaurantService.delete(restaurantRemoved,function(status){
-    			alert('Restaurante eliminado correctamente');
-				window.location.href = "index.html";
+    			RestaurantService.getAll(function(data){
+			    	$scope.restaurants = data;
+			    	alert('Restaurante eliminado correctamente');
+					$scope.showRestaurantsList();
+			    });
     		});
     	}
     }
@@ -99,13 +110,65 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'longitud':''
 			};
 			RestaurantService.update(restaurantUpdated,function(status){
-				alert('Restaurante actualizado correctamente');
-				window.location.href = "index.html";
+				RestaurantService.getAll(function(data){
+			    	$scope.restaurants = data;
+			    	alert('Restaurante actualizado correctamente');
+			    	$scope.restaurant.email=$scope.restaurant.newemail;
+					$scope.area = 0;
+			    });
 			});
 		}else{
 			alert("Algunos campos no se han añadido, revise el formulario");
 		}
     }
+    $scope.startApp = function() {
+        gapi.load('auth2', function(){
+          // Retrieve the singleton for the GoogleAuth library and set up the client.
+          auth2 = gapi.auth2.init({
+          	client_id: '882920806176-m1b6tbg86vgme4se7pauaor6lsfhi0d3.apps.googleusercontent.com',
+          	cookiepolicy: 'single_host_origin',
+            // Request scopes in addition to 'profile' and 'email'
+            //scope: 'additional_scope'
+        });
+          $scope.attachSignin(document.getElementById('login1'));
+          $scope.attachSignin(document.getElementById('login2'));
+      });
+    }
+    $scope.attachSignin =  function(element){
+        auth2.attachClickHandler(element, {},
+            function(googleUser) {
+              $scope.onSignIn(googleUser);
+          }, function(error) {
+              alert(JSON.stringify(error, undefined, 2));
+          });
+    }
+    $scope.onSignIn=function(googleUser) {
+    	$(".avatar").each(function() {
+			$(this).attr("src",googleUser.getBasicProfile().getImageUrl());
+		});
+    	$scope.logged = true;
+    	$scope.googleUser = googleUser;
+		$scope.$apply();
+		console.log("Sesión iniciada.");
+        console.log(googleUser);
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+    }
+    $scope.signOut=function(){
+    	var r = confirm("¿Deseas cerrar sesión?");
+    	if(r){
+    		var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('Sesión finalizada.');
+		      $scope.logged=false;
+		      $scope.$apply();
+		    });
+    	}
+    }
+    $scope.startApp();
 });
 
 app.directive("reload", function () {
