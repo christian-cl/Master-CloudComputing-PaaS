@@ -35,9 +35,11 @@ app.controller('MainController', function($scope, RestaurantService) {
     	}
     	$scope.changed=true; //Recargamos el mapa principal
     }
+    
     $scope.showRestaurant = function(index){ //Cambia a la vista restaurante y carga el mapa con su posición
     	$scope.flag = false;
     	$scope.restaurant = $scope.restaurants[index];
+
     	$scope.restaurant.newemail = $scope.restaurant.email;
     	$scope.infoMap = new google.maps.Map(document.getElementById('infoMap'), { //Mapa informativo (solo lectura)
 		    center: {lat: parseInt($scope.restaurant.latitud), lng: parseInt($scope.restaurant.longitud)},
@@ -84,7 +86,8 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'telefono':$scope.newrestaurant.telefono,
 				'descripcion':$scope.newrestaurant.descripcion,
 				'latitud':$scope.newrestaurant.latitud,
-				'longitud':$scope.newrestaurant.longitud
+				'longitud':$scope.newrestaurant.longitud,
+				'etiqueta':$scope.newrestaurant.etiqueta
 			};
 			RestaurantService.insert(restaurantAdded,function(status){ //Cuando lo insertamos, volvemos al inicio y recargamos la lista
 				RestaurantService.getAll(function(data){

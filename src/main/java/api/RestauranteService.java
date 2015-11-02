@@ -1,4 +1,8 @@
 package api;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,11 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
+import com.google.appengine.repackaged.com.google.gson.Gson;
+
+import api.flickr.Flickr;
+import api.flickr.Photo;
+
 
 @Path("/restaurantes")
 public class RestauranteService {
@@ -42,6 +51,7 @@ public class RestauranteService {
 				+ "encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.");
 		e1.setProperty("latitud", "37.046567");
 		e1.setProperty("longitud", "-5.015616");
+		e1.setProperty("etiqueta", "laTrastienda");
 		Entity e2 = new Entity("Restaurante");
 		e2.setProperty("nombre", "El Reservado");
 		e2.setProperty("email", "elreservado46@gmail.com");
@@ -50,6 +60,7 @@ public class RestauranteService {
 		e2.setProperty("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
 		e2.setProperty("latitud", "36.725604");
 		e2.setProperty("longitud", "-4.255078");
+		e1.setProperty("etiqueta", "elReservado");
 		Entity e3 = new Entity("Restaurante");
 		e3.setProperty("nombre", "Indian City");
 		e3.setProperty("email", "indiancity76@gmail.com");
@@ -59,6 +70,7 @@ public class RestauranteService {
 				+ "y a pocos pasos de Puerto Marina.");
 		e3.setProperty("latitud", "36.600891");
 		e3.setProperty("longitud", "-4.515973");
+		e1.setProperty("etiqueta", "indianCity");		
 		ds.put(e2);
 		ds.put(e1);
 		ds.put(e3);
@@ -68,7 +80,7 @@ public class RestauranteService {
 	@GET
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public List<Restaurante> getRestaurantes(@DefaultValue("1") @QueryParam("page") int page, @DefaultValue("20") @QueryParam("limit") int limit) {
+	public List<Restaurante> getRestaurantes(@DefaultValue("1") @QueryParam("page") int page, @DefaultValue("20") @QueryParam("limit") int limit) throws IOException {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("Restaurante").addSort("nombre",Query.SortDirection.ASCENDING);
 		FetchOptions fetchOptions = FetchOptions.Builder.withLimit(limit);
@@ -90,11 +102,53 @@ public class RestauranteService {
 			String descripcion = (String) e.getProperty("descripcion");
 			String latitud = (String) e.getProperty("latitud");
 			String longitud = (String) e.getProperty("longitud");
-			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud));
+			String etiqueta = (String) e.getProperty("etiqueta");
+			List<String> links = findPhotosUrlByTag(etiqueta);
+			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud,etiqueta,links));
 		}
 		return restaurantes;
 	}
 	
+	
+	private List<String> findPhotosUrlByTag(String tag) throws IOException {
+
+		URL url = new URL(
+				"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=d0e0a8fae98011fc86171d78743659af&tags="
+						+ tag);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				url.openStream()));
+		String line = "";
+		String reply = "";
+		while ((line = reader.readLine()) != null) {
+			reply += line;
+		}
+		reader.close();
+
+		System.out.println("Reply: " + reply);
+		reply=reply.replace("jsonFlickrApi(", "");
+		reply=reply.substring(0, reply.length() - 1);
+		
+		
+
+		Gson gson = new Gson();
+		Flickr fr = gson.fromJson(reply, Flickr.class);
+
+		List<String> links = new ArrayList<String>();
+		for (Photo photo : fr.getPhotos().getPhoto()) {
+			Integer farm = photo.getFarm();
+			String server = photo.getServer();
+			String id = photo.getId();
+			String secret = photo.getSecret();
+
+			String link = "http://farm" + farm + ".staticflickr.com/" + server
+					+ "/" + id + "_" + secret + "_" + "z" + ".jpg";
+			links.add(link);
+		}
+
+		return links;
+
+	}
+
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response addRestaurante(Restaurante r) {
@@ -111,6 +165,7 @@ public class RestauranteService {
 			e1.setProperty("descripcion",r.getDescripcion());
 			e1.setProperty("latitud", r.getLatitud());
 			e1.setProperty("longitud", r.getLongitud());
+			e1.setProperty("etiqueta", r.getEtiqueta());
 			ds.put(e1);
 			return Response.status(Status.OK).build();
 		}else{
@@ -136,6 +191,7 @@ public class RestauranteService {
 			e1.setProperty("descripcion",r.getDescripcion());
 			e1.setProperty("latitud", r.getLatitud());
 			e1.setProperty("longitud", r.getLongitud());
+			e1.setProperty("etiqueta", r.getEtiqueta());
 			ds.put(e1);
 			return Response.status(Status.OK).build();
 		}
