@@ -51,7 +51,7 @@ public class RestauranteService {
 				+ "encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.");
 		e1.setProperty("latitud", "37.046567");
 		e1.setProperty("longitud", "-5.015616");
-		e1.setProperty("etiqueta", "laTrastienda");
+		e1.setProperty("etiqueta", "restauranteLaTrastienda");
 		Entity e2 = new Entity("Restaurante");
 		e2.setProperty("nombre", "El Reservado");
 		e2.setProperty("email", "elreservado46@gmail.com");
@@ -60,7 +60,7 @@ public class RestauranteService {
 		e2.setProperty("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
 		e2.setProperty("latitud", "36.725604");
 		e2.setProperty("longitud", "-4.255078");
-		e1.setProperty("etiqueta", "elReservado");
+		e1.setProperty("etiqueta", "restauranteElReservado");
 		Entity e3 = new Entity("Restaurante");
 		e3.setProperty("nombre", "Indian City");
 		e3.setProperty("email", "indiancity76@gmail.com");
@@ -70,7 +70,7 @@ public class RestauranteService {
 				+ "y a pocos pasos de Puerto Marina.");
 		e3.setProperty("latitud", "36.600891");
 		e3.setProperty("longitud", "-4.515973");
-		e1.setProperty("etiqueta", "indianCity");		
+		e1.setProperty("etiqueta", "restauranteIndianCity");		
 		ds.put(e2);
 		ds.put(e1);
 		ds.put(e3);
@@ -104,11 +104,11 @@ public class RestauranteService {
 			String longitud = (String) e.getProperty("longitud");
 			String etiqueta = (String) e.getProperty("etiqueta");
 			List<String> links = findPhotosUrlByTag(etiqueta);
+//			System.out.println("Link 0 "+ links.get(0));
 			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud,etiqueta,links));
 		}
 		return restaurantes;
 	}
-	
 	
 	private List<String> findPhotosUrlByTag(String tag) throws IOException {
 
@@ -127,9 +127,8 @@ public class RestauranteService {
 		System.out.println("Reply: " + reply);
 		reply=reply.replace("jsonFlickrApi(", "");
 		reply=reply.substring(0, reply.length() - 1);
-		
-		
 
+		
 		Gson gson = new Gson();
 		Flickr fr = gson.fromJson(reply, Flickr.class);
 

@@ -15,7 +15,7 @@ public class FlickrService {
 	public List<String> findPhotosUrlByTag(String tag) throws IOException {
 
 		URL url = new URL(
-				"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=d0e0a8fae98011fc86171d78743659af&tags="
+				"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key= 5416eb9b35def4857ddddf4df48a6782&tags="
 						+ tag);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				url.openStream()));

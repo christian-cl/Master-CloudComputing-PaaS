@@ -13,6 +13,7 @@ app.controller('MainController', function($scope, RestaurantService) {
     $scope.marker = false; //Apunta a la posición del nuevo restaurante
     $scope.updateMarker = false; //Apunta a la posición del restaurante modificado
     $scope.changed = false; //True cada vez que se añade, modifica o elimina un restaurante (para recargar el mapa principal)
+    $scope.links = {}; //Lista de links de Flickr
 
     /*	FUNCIONES PARA LA NAVEGACIÓN POR LA UI */
     $scope.showRestaurantsList = function(){ //Muestra la pantalla principal con la lista de restaurantes
@@ -76,6 +77,11 @@ app.controller('MainController', function($scope, RestaurantService) {
 	    });
     }
 
+    /* OPERACIÓN PARA CARGAR LAS FOTOS DE FLICKR */
+    $scope.addLink = function() {
+    	$scope.link = $scope.restaurant.links;
+    }
+    
     /*	OPERACIONES SOBRE LOS RESTAURANTES */
     $scope.addRestaurant = function(){ //Llamada al servicio para la inserción de un restaurante
 		if($scope.add.$valid){ //Validación con AngularJS
@@ -112,7 +118,8 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'telefono':$scope.restaurant.telefono,
 				'descripcion':$scope.restaurant.descripcion,
 				'latitud':$scope.restaurant.latitud,
-				'longitud':$scope.restaurant.longitud
+				'longitud':$scope.restaurant.longitud,
+				'etiqueta':$scope.restaurant.etiqueta,
 			};
     		RestaurantService.delete(restaurantRemoved,function(status){ //Tras eliminar, volvemos al inicio recargando la lista
     			RestaurantService.getAll(function(data){
@@ -133,7 +140,8 @@ app.controller('MainController', function($scope, RestaurantService) {
 				'telefono':$scope.restaurant.telefono,
 				'descripcion':$scope.restaurant.descripcion,
 				'latitud':$scope.restaurant.latitud,
-				'longitud':$scope.restaurant.longitud
+				'longitud':$scope.restaurant.longitud,
+				'etiqueta':$scope.restaurant.etiqueta
 			};
 			RestaurantService.update(restaurantUpdated,function(status){ //Tras actualizar, volvemos a los detalles recargando el mapa
 				RestaurantService.getAll(function(data){

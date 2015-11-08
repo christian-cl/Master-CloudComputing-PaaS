@@ -206,8 +206,43 @@
 					{{restaurant.direccion}}</div>
 				<div class="webtemplate-rationale webtemplate ">	
 					{{restaurant.telefono}}</div>
-
 				<div >
+								
+		<!-- Lista de fotos de Flickr -->
+		<div class="content" ng-show="area===0">
+				<div>
+					<a href="#"><img class="projects" ng-src="{{restaurant.links[0]}}"
+						width="100%" height="100%"></a>
+				</div>
+				<div class="clear"></div>
+		</div>
+		<div class="content" ng-show="area===0">
+				<div>
+					<a href="#"><img class="projects" ng-src="{{restaurant.links[1]}}"
+						width="100%" height="100%"></a>
+				</div>
+				<div class="clear"></div>
+		</div>
+		<div class="content" ng-show="area===0">
+				<div>
+					<a href="#"><img class="projects" ng-src="{{restaurant.links[2]}}"
+						width="100%" height="100%"></a>
+				</div>
+				<div class="clear"></div>
+		</div>
+		<div class="content" ng-show="area===0">
+				<div>
+					<a href="#"><img class="projects" ng-src="{{restaurant.links[3]}}"
+						width="100%" height="100%"></a>
+				</div>
+				<div class="clear"></div>
+		</div>
+
+<!-- <div ng-app> -->
+<!-- <div ng-controller = "addLink"> -->
+<!--         <a href='#'><img ng-src="{{link0}}"/></a> -->
+<!-- </div> -->
+<!-- </div> -->
 
 
 					<!-- begin wwww.htmlcommentbox.com -->
