@@ -1,8 +1,14 @@
 package api;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +25,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -30,6 +40,10 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.appengine.repackaged.com.google.gson.JsonArray;
+import com.google.appengine.repackaged.com.google.gson.JsonElement;
+import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.appengine.repackaged.com.google.gson.JsonParser;
 
 import api.flickr.Flickr;
 import api.flickr.Photo;
@@ -40,40 +54,65 @@ public class RestauranteService {
 	
 	@GET
 	@Path("/populate")
-	public Response populateDB() {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Entity e1 = new Entity("Restaurante");
-		e1.setProperty("nombre", "La Trastienda");
-		e1.setProperty("email", "latrastienda18@gmail.com");
-		e1.setProperty("direccion", "Calle Cervantes, nº 10 - Málaga");
-		e1.setProperty("telefono", "951862145");
-		e1.setProperty("descripcion", "El Restaurante La Trastienda se "
+	public Response populateDB() throws IOException, JSONException {
+		
+		JSONObject e1 = new JSONObject();
+		e1.put("nombre", "La Trastienda");
+		e1.put("email", "latrastienda18@gmail.com");
+		e1.put("direccion", "Calle Cervantes, nº 10 - Málaga");
+		e1.put("telefono", "951862145");
+		e1.put("descripcion", "El Restaurante La Trastienda se "
 				+ "encuentra ubicado junto a la Plaza de Toros de la Malagueta y a escasos 50 metros del Paseo Marítimo y de la playa, así como del centro histórico de Málaga.");
-		e1.setProperty("latitud", "37.046567");
-		e1.setProperty("longitud", "-5.015616");
-		e1.setProperty("etiqueta", "restauranteLaTrastienda");
-		Entity e2 = new Entity("Restaurante");
-		e2.setProperty("nombre", "El Reservado");
-		e2.setProperty("email", "elreservado46@gmail.com");
-		e2.setProperty("direccion", "Calle Acebuchal, 15, Autovía del Mediterráneo, Salida 256 - Rincón de la Victoria");
-		e2.setProperty("telefono", "951234789");
-		e2.setProperty("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
-		e2.setProperty("latitud", "36.725604");
-		e2.setProperty("longitud", "-4.255078");
-		e1.setProperty("etiqueta", "restauranteElReservado");
-		Entity e3 = new Entity("Restaurante");
-		e3.setProperty("nombre", "Indian City");
-		e3.setProperty("email", "indiancity76@gmail.com");
-		e3.setProperty("direccion", "Avenida Antonio Machado, 44-46, 29630 Benalmádena, Málaga, España - Benalmádena");
-		e3.setProperty("telefono", "951234951");
-		e3.setProperty("descripcion", "El exótico Restaurante Indian City está situado en Benalmádena, Málaga, un enclave único para disfrutar del buen tiempo de la Costa del Sol, "
+		e1.put("latitud", "37.046567");
+		e1.put("longitud", "-5.015616");
+		e1.put("etiqueta", "restauranteLaTrastienda");
+		
+		JSONObject e2 = new JSONObject();
+		e2.put("nombre", "El Reservado");
+		e2.put("email", "elreservado46@gmail.com");
+		e2.put("direccion", "Calle Acebuchal, 15, Autovía del Mediterráneo, Salida 256 - Rincón de la Victoria");
+		e2.put("telefono", "951234789");
+		e2.put("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
+		e2.put("latitud", "36.725604");
+		e2.put("longitud", "-4.255078");
+		e2.put("etiqueta", "restauranteElReservado");
+		
+		JSONObject e3 = new JSONObject();
+		e3.put("nombre", "Indian City");
+		e3.put("email", "indiancity76@gmail.com");
+		e3.put("direccion", "Avenida Antonio Machado, 44-46, 29630 Benalmádena, Málaga, España - Benalmádena");
+		e3.put("telefono", "951234951");
+		e3.put("descripcion", "El exótico Restaurante Indian City está situado en Benalmádena, Málaga, un enclave único para disfrutar del buen tiempo de la Costa del Sol, "
 				+ "y a pocos pasos de Puerto Marina.");
-		e3.setProperty("latitud", "36.600891");
-		e3.setProperty("longitud", "-4.515973");
-		e1.setProperty("etiqueta", "restauranteIndianCity");		
-		ds.put(e2);
-		ds.put(e1);
-		ds.put(e3);
+		e3.put("latitud", "36.600891");
+		e3.put("longitud", "-4.515973");
+		e3.put("etiqueta", "restauranteIndianCity");
+		
+		JSONArray arr = new JSONArray();
+		arr.put(e1);
+		arr.put(e2);
+		arr.put(e3);
+
+		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setConnectTimeout(10000);
+		urlConnection.setRequestMethod("POST");
+		urlConnection.setRequestProperty("Content-Type", "application/json");
+		urlConnection.setDoOutput(true);
+		urlConnection.setRequestProperty("Content-Length", String.valueOf(arr.toString().length()));
+		byte[] postDataBytes = arr.toString().getBytes("UTF-8");
+		urlConnection.getOutputStream().write(postDataBytes);
+		
+		InputStream input = urlConnection.getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+		String line = "", reply = "";
+		while ((line = reader.readLine()) != null) {
+			reply += line;
+		}
+		System.out.println(arr.toString());
+		System.out.println(reply);
+		
+		urlConnection.disconnect();
 		return Response.ok("Datastore rellenado correctamente.").build();
 	}
 
@@ -81,32 +120,41 @@ public class RestauranteService {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public List<Restaurante> getRestaurantes(@DefaultValue("1") @QueryParam("page") int page, @DefaultValue("20") @QueryParam("limit") int limit) throws IOException {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Query query = new Query("Restaurante").addSort("nombre",Query.SortDirection.ASCENDING);
-		FetchOptions fetchOptions = FetchOptions.Builder.withLimit(limit);
-		PreparedQuery pq = ds.prepare(query);
-		QueryResultList<Entity> results = pq.asQueryResultList(fetchOptions);
-		int pageCount = 1;
-		while(pageCount<page){
-			System.out.println("Hola");
-			fetchOptions.startCursor(results.getCursor());
-			results = pq.asQueryResultList(fetchOptions);
-			pageCount++;
+		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&sk="+((page-1)*limit)+"&l="+limit);
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setConnectTimeout(10000);
+		urlConnection.setRequestMethod("GET");
+		urlConnection.setRequestProperty("Accept", "application/json");
+		urlConnection.setDoOutput(true);
+		
+		Charset charset = Charset.forName("UTF-8");
+		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+		String response = "",output;
+		while ((output = br.readLine()) != null) {
+			response+=output;
 		}
+		System.out.println(response);
+		
+		JsonElement jelement = new JsonParser().parse(response);
+		JsonArray jarray = jelement.getAsJsonArray();
+		
 		List<Restaurante> restaurantes = new ArrayList<Restaurante>();
-		for(Entity e: results){
-			String nombre = (String) e.getProperty("nombre");
-			String email = (String) e.getProperty("email");
-			String direccion = (String) e.getProperty("direccion");
-			String telefono = (String) e.getProperty("telefono");
-			String descripcion = (String) e.getProperty("descripcion");
-			String latitud = (String) e.getProperty("latitud");
-			String longitud = (String) e.getProperty("longitud");
-			String etiqueta = (String) e.getProperty("etiqueta");
+		for(int i=0;i<jarray.size();i++){
+			JsonObject jobject = jarray.get(i).getAsJsonObject();
+			String nombre = jobject.get("nombre").toString().replace("\"", "");
+			String email = jobject.get("email").toString().replace("\"", "");
+			String direccion = jobject.get("direccion").toString().replace("\"", "");
+			String telefono = jobject.get("telefono").toString().replace("\"", "");
+			String descripcion = jobject.get("descripcion").toString().replace("\"", "");
+			String latitud = jobject.get("latitud").toString().replace("\"", "");
+			String longitud = jobject.get("longitud").toString().replace("\"", "");
+			String etiqueta = jobject.get("etiqueta").toString().replace("\"", "");
 			List<String> links = findPhotosUrlByTag(etiqueta);
-//			System.out.println("Link 0 "+ links.get(0));
 			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud,etiqueta,links));
 		}
+		
+		urlConnection.disconnect();
+		System.out.println(restaurantes);
 		return restaurantes;
 	}
 	
@@ -150,22 +198,54 @@ public class RestauranteService {
 
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response addRestaurante(Restaurante r) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
-		Query query = new Query("Restaurante").setFilter(propertyFilter);
-		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
-		if(results.isEmpty()){
-			Entity e1 = new Entity("Restaurante");
-			e1.setProperty("nombre", r.getNombre());
-			e1.setProperty("email", r.getEmail());
-			e1.setProperty("direccion", r.getDireccion());
-			e1.setProperty("telefono", r.getTelefono());
-			e1.setProperty("descripcion",r.getDescripcion());
-			e1.setProperty("latitud", r.getLatitud());
-			e1.setProperty("longitud", r.getLongitud());
-			e1.setProperty("etiqueta", r.getEtiqueta());
-			ds.put(e1);
+	public Response addRestaurante(Restaurante r) throws IOException, JSONException {
+		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
+		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setConnectTimeout(10000);
+		urlConnection.setRequestMethod("GET");
+		urlConnection.setRequestProperty("Accept", "application/json");
+		urlConnection.setDoOutput(true);
+		
+		Charset charset = Charset.forName("UTF-8");
+		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+		String response = "",output;
+		while ((output = br.readLine()) != null) {
+			response+=output;
+		}
+		System.out.println(response);
+		urlConnection.disconnect();
+		
+		JsonElement jelement = new JsonParser().parse(response);
+		if(jelement.toString().equals("[]")){
+			JSONObject e1 = new JSONObject();
+			e1.put("nombre", r.getNombre());
+			e1.put("email", r.getEmail());
+			e1.put("direccion", r.getDireccion());
+			e1.put("telefono", r.getTelefono());
+			e1.put("descripcion", r.getDescripcion());
+			e1.put("latitud", r.getLatitud());
+			e1.put("longitud", r.getLongitud());
+			e1.put("etiqueta", r.getEtiqueta());
+			
+			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setConnectTimeout(10000);
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setDoOutput(true);
+			urlConnection.setRequestProperty("Content-Length", String.valueOf(e1.toString().length()));
+			byte[] postDataBytes = e1.toString().getBytes("UTF-8");
+			urlConnection.getOutputStream().write(postDataBytes);
+			
+			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+			response = "";
+			while ((output = br.readLine()) != null) {
+				response+=output;
+			}
+			System.out.println(response);
+			
+			urlConnection.disconnect();
 			return Response.status(Status.OK).build();
 		}else{
 			return Response.serverError().build();
@@ -174,24 +254,60 @@ public class RestauranteService {
 	
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response updateRestaurante(Restaurante r) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
-		Query query = new Query("Restaurante").setFilter(propertyFilter);
-		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
-		if(results.isEmpty()){
+	public Response updateRestaurante(Restaurante r) throws IOException, JSONException {
+		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
+		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setConnectTimeout(10000);
+		urlConnection.setRequestMethod("GET");
+		urlConnection.setRequestProperty("Accept", "application/json");
+		urlConnection.setDoOutput(true);
+		
+		Charset charset = Charset.forName("UTF-8");
+		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+		String response = "",output;
+		while ((output = br.readLine()) != null) {
+			response+=output;
+		}
+		System.out.println(response);
+		urlConnection.disconnect();
+		
+		JsonElement jelement = new JsonParser().parse(response);
+		if(jelement.isJsonNull()){
 			return Response.serverError().build();
 		}else{
-			Entity e1 = results.get(0);
-			e1.setProperty("nombre", r.getNombre());
-			e1.setProperty("email", r.getNewemail());
-			e1.setProperty("direccion", r.getDireccion());
-			e1.setProperty("telefono", r.getTelefono());
-			e1.setProperty("descripcion",r.getDescripcion());
-			e1.setProperty("latitud", r.getLatitud());
-			e1.setProperty("longitud", r.getLongitud());
-			e1.setProperty("etiqueta", r.getEtiqueta());
-			ds.put(e1);
+			JsonArray jarray = jelement.getAsJsonArray();
+			String docId = jarray.get(0).getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString().replace("\"", "");
+			
+			JSONObject e1 = new JSONObject();
+			e1.put("nombre", r.getNombre());
+			e1.put("email", r.getEmail());
+			e1.put("direccion", r.getDireccion());
+			e1.put("telefono", r.getTelefono());
+			e1.put("descripcion", r.getDescripcion());
+			e1.put("latitud", r.getLatitud());
+			e1.put("longitud", r.getLongitud());
+			e1.put("etiqueta", r.getEtiqueta());
+			
+			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes/"+docId+"?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setConnectTimeout(10000);
+			urlConnection.setRequestMethod("PUT");
+			urlConnection.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setDoOutput(true);
+			urlConnection.setRequestProperty("Content-Length", String.valueOf(e1.toString().length()));
+			byte[] postDataBytes = e1.toString().getBytes("UTF-8");
+			urlConnection.getOutputStream().write(postDataBytes);
+			
+			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+			response = "";
+			while ((output = br.readLine()) != null) {
+				response+=output;
+			}
+			System.out.println(response);
+			
+			urlConnection.disconnect();
+			
 			return Response.status(Status.OK).build();
 		}
 	}
@@ -199,16 +315,48 @@ public class RestauranteService {
 	@POST
 	@Path("/delete")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response removeRestaurante(Restaurante r) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
-		Query query = new Query("Restaurante").setFilter(propertyFilter);
-		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
-		if(!results.isEmpty()){
-			ds.delete(results.get(0).getKey());
-			return Response.status(Status.OK).build();
-		}else{
+	public Response removeRestaurante(Restaurante r) throws IOException, JSONException {
+		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
+		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setConnectTimeout(10000);
+		urlConnection.setRequestMethod("GET");
+		urlConnection.setRequestProperty("Accept", "application/json");
+		urlConnection.setDoOutput(true);
+		
+		Charset charset = Charset.forName("UTF-8");
+		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+		String response = "",output;
+		while ((output = br.readLine()) != null) {
+			response+=output;
+		}
+		System.out.println(response);
+		urlConnection.disconnect();
+		
+		JsonElement jelement = new JsonParser().parse(response);
+		if(jelement.isJsonNull()){
 			return Response.serverError().build();
+		}else{
+			JsonArray jarray = jelement.getAsJsonArray();
+			String docId = jarray.get(0).getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString().replace("\"", "");
+			
+			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes/"+docId+"?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setConnectTimeout(10000);
+			urlConnection.setRequestMethod("DELETE");
+			urlConnection.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setDoOutput(true);
+			
+			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
+			response = "";
+			while ((output = br.readLine()) != null) {
+				response+=output;
+			}
+			System.out.println(response);
+			
+			urlConnection.disconnect();
+			
+			return Response.status(Status.OK).build();
 		}
 	}
 }
