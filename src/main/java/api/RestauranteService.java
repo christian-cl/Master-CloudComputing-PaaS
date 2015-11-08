@@ -60,7 +60,7 @@ public class RestauranteService {
 		e2.setProperty("descripcion", "Cuenta con una zona de tapeo donde podrás degustar un gran surtido de tapas tradicionales, hamburguesas gourmet o tapas dulces. ");
 		e2.setProperty("latitud", "36.725604");
 		e2.setProperty("longitud", "-4.255078");
-		e1.setProperty("etiqueta", "restauranteElReservado");
+		e2.setProperty("etiqueta", "restauranteElReservado");
 		Entity e3 = new Entity("Restaurante");
 		e3.setProperty("nombre", "Indian City");
 		e3.setProperty("email", "indiancity76@gmail.com");
@@ -70,7 +70,7 @@ public class RestauranteService {
 				+ "y a pocos pasos de Puerto Marina.");
 		e3.setProperty("latitud", "36.600891");
 		e3.setProperty("longitud", "-4.515973");
-		e1.setProperty("etiqueta", "restauranteIndianCity");		
+		e3.setProperty("etiqueta", "restauranteIndianCity");		
 		ds.put(e2);
 		ds.put(e1);
 		ds.put(e3);
