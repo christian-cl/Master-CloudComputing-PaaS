@@ -298,7 +298,7 @@ public class RestauranteService {
 			//Creación del objeto JSON con el restaurante actualizado
 			JSONObject e1 = new JSONObject();
 			e1.put("nombre", r.getNombre());
-			e1.put("email", r.getEmail());
+			e1.put("email", r.getNewemail());
 			e1.put("direccion", r.getDireccion());
 			e1.put("telefono", r.getTelefono());
 			e1.put("descripcion", r.getDescripcion());
