@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -13,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,16 +26,6 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.com.google.gson.JsonArray;
 import com.google.appengine.repackaged.com.google.gson.JsonElement;
@@ -55,7 +42,9 @@ public class RestauranteService {
 	@GET
 	@Path("/populate")
 	public Response populateDB() throws IOException, JSONException {
+		//CREACIÓN Y ALMACENAMIENTO DE RESTAURANTES DE EJEMPLO EN MONGOLAB
 		
+		//Creación de los objetos JSON
 		JSONObject e1 = new JSONObject();
 		e1.put("nombre", "La Trastienda");
 		e1.put("email", "latrastienda18@gmail.com");
@@ -88,11 +77,13 @@ public class RestauranteService {
 		e3.put("longitud", "-4.515973");
 		e3.put("etiqueta", "restauranteIndianCity");
 		
+		//Creación de un array JSON
 		JSONArray arr = new JSONArray();
 		arr.put(e1);
 		arr.put(e2);
 		arr.put(e3);
 
+		//Petición POST a la API de Mongolab
 		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 		urlConnection.setConnectTimeout(10000);
@@ -103,6 +94,7 @@ public class RestauranteService {
 		byte[] postDataBytes = arr.toString().getBytes("UTF-8");
 		urlConnection.getOutputStream().write(postDataBytes);
 		
+		//Obtención de una respuesta
 		InputStream input = urlConnection.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 		String line = "", reply = "";
@@ -112,6 +104,7 @@ public class RestauranteService {
 		System.out.println(arr.toString());
 		System.out.println(reply);
 		
+		//Desconexión
 		urlConnection.disconnect();
 		return Response.ok("Datastore rellenado correctamente.").build();
 	}
@@ -120,6 +113,9 @@ public class RestauranteService {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public List<Restaurante> getRestaurantes(@DefaultValue("1") @QueryParam("page") int page, @DefaultValue("20") @QueryParam("limit") int limit) throws IOException {
+		// OBTENCIÓN DE LA LISTA DE RESTAURANTES, CON POSIBILIDAD DE PAGINACIÓN
+		
+		//Petición GET a la API de Mongolab
 		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&sk="+((page-1)*limit)+"&l="+limit);
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 		urlConnection.setConnectTimeout(10000);
@@ -127,6 +123,7 @@ public class RestauranteService {
 		urlConnection.setRequestProperty("Accept", "application/json");
 		urlConnection.setDoOutput(true);
 		
+		//Obtención de la respuesta
 		Charset charset = Charset.forName("UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 		String response = "",output;
@@ -135,6 +132,7 @@ public class RestauranteService {
 		}
 		System.out.println(response);
 		
+		//Parseo de los restaurantes
 		JsonElement jelement = new JsonParser().parse(response);
 		JsonArray jarray = jelement.getAsJsonArray();
 		
@@ -153,12 +151,14 @@ public class RestauranteService {
 			restaurantes.add(new Restaurante(nombre, email, direccion, telefono, descripcion,latitud,longitud,etiqueta,links));
 		}
 		
+		//Desconexión
 		urlConnection.disconnect();
 		System.out.println(restaurantes);
 		return restaurantes;
 	}
 	
 	private List<String> findPhotosUrlByTag(String tag) throws IOException {
+		//OBTENCIÓN DE UNA LISTA DE URLs DE IMÁGENES DE FLICKR A PARTIR DE UNA ETIQUETA
 
 		URL url = new URL(
 				"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=d0e0a8fae98011fc86171d78743659af&tags="
@@ -199,6 +199,9 @@ public class RestauranteService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response addRestaurante(Restaurante r) throws IOException, JSONException {
+		//CREACIÓN DE UN RESTAURANTE EN LA BASE DE DATOS MONGO
+		
+		//Petición GET para comprobar si el restaurante ya existe (filtrando por e-mail)
 		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
 		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -207,6 +210,7 @@ public class RestauranteService {
 		urlConnection.setRequestProperty("Accept", "application/json");
 		urlConnection.setDoOutput(true);
 		
+		//Obtención de la respuesta
 		Charset charset = Charset.forName("UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 		String response = "",output;
@@ -216,8 +220,11 @@ public class RestauranteService {
 		System.out.println(response);
 		urlConnection.disconnect();
 		
+		//Si el restaurante no existe, lo añadimos
 		JsonElement jelement = new JsonParser().parse(response);
 		if(jelement.toString().equals("[]")){
+			
+			//Creación del objeto JSON
 			JSONObject e1 = new JSONObject();
 			e1.put("nombre", r.getNombre());
 			e1.put("email", r.getEmail());
@@ -228,6 +235,7 @@ public class RestauranteService {
 			e1.put("longitud", r.getLongitud());
 			e1.put("etiqueta", r.getEtiqueta());
 			
+			//Petición POST con el restaurante
 			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(10000);
@@ -238,6 +246,7 @@ public class RestauranteService {
 			byte[] postDataBytes = e1.toString().getBytes("UTF-8");
 			urlConnection.getOutputStream().write(postDataBytes);
 			
+			//Obtención de la respuesta
 			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 			response = "";
 			while ((output = br.readLine()) != null) {
@@ -245,6 +254,7 @@ public class RestauranteService {
 			}
 			System.out.println(response);
 			
+			//Desconexión
 			urlConnection.disconnect();
 			return Response.status(Status.OK).build();
 		}else{
@@ -255,6 +265,9 @@ public class RestauranteService {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response updateRestaurante(Restaurante r) throws IOException, JSONException {
+		//ACTUALIZACIÓN DE UN RESTAURANTE
+		
+		//Petición GET para comprobar si el restaurante ya existe (filtrando por e-mail)
 		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
 		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -263,6 +276,7 @@ public class RestauranteService {
 		urlConnection.setRequestProperty("Accept", "application/json");
 		urlConnection.setDoOutput(true);
 		
+		//Obtención de la respuesta
 		Charset charset = Charset.forName("UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 		String response = "",output;
@@ -272,13 +286,16 @@ public class RestauranteService {
 		System.out.println(response);
 		urlConnection.disconnect();
 		
+		//Si el restaurante existe, lo actualizamos
 		JsonElement jelement = new JsonParser().parse(response);
 		if(jelement.isJsonNull()){
 			return Response.serverError().build();
 		}else{
+			//Obtención del id del documento
 			JsonArray jarray = jelement.getAsJsonArray();
 			String docId = jarray.get(0).getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString().replace("\"", "");
 			
+			//Creación del objeto JSON con el restaurante actualizado
 			JSONObject e1 = new JSONObject();
 			e1.put("nombre", r.getNombre());
 			e1.put("email", r.getEmail());
@@ -289,6 +306,7 @@ public class RestauranteService {
 			e1.put("longitud", r.getLongitud());
 			e1.put("etiqueta", r.getEtiqueta());
 			
+			//Petición PUT para actualizar el restaurante en Mongolab
 			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes/"+docId+"?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(10000);
@@ -299,6 +317,7 @@ public class RestauranteService {
 			byte[] postDataBytes = e1.toString().getBytes("UTF-8");
 			urlConnection.getOutputStream().write(postDataBytes);
 			
+			//Obtención de la respuesta
 			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 			response = "";
 			while ((output = br.readLine()) != null) {
@@ -306,6 +325,7 @@ public class RestauranteService {
 			}
 			System.out.println(response);
 			
+			//Desconexión
 			urlConnection.disconnect();
 			
 			return Response.status(Status.OK).build();
@@ -316,6 +336,9 @@ public class RestauranteService {
 	@Path("/delete")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response removeRestaurante(Restaurante r) throws IOException, JSONException {
+		//ELIMINACIÓN DE UN RESTAURANTE
+		
+		//Petición GET para comprobar si el restaurante ya existe (filtrando por e-mail)
 		String query = URLEncoder.encode("{\"email\":\""+r.getEmail()+"\"}");
 		URL url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ&q="+query);
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -324,6 +347,7 @@ public class RestauranteService {
 		urlConnection.setRequestProperty("Accept", "application/json");
 		urlConnection.setDoOutput(true);
 		
+		//Obtención de la respuesta
 		Charset charset = Charset.forName("UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 		String response = "",output;
@@ -333,13 +357,16 @@ public class RestauranteService {
 		System.out.println(response);
 		urlConnection.disconnect();
 		
+		//Si el restaurante existe, lo eliminamos
 		JsonElement jelement = new JsonParser().parse(response);
 		if(jelement.isJsonNull()){
 			return Response.serverError().build();
 		}else{
+			//Obtención del id del documento
 			JsonArray jarray = jelement.getAsJsonArray();
 			String docId = jarray.get(0).getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString().replace("\"", "");
 			
+			//Petición DELETE para eliminar el documento en Mongolab
 			url = new URL("https://api.mongolab.com/api/1/databases/mongodatabase/collections/restaurantes/"+docId+"?apiKey=xNBAwt0MLE1oCNjTjUbSEcZAUzeUvXnZ");
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(10000);
@@ -347,6 +374,7 @@ public class RestauranteService {
 			urlConnection.setRequestProperty("Content-Type", "application/json");
 			urlConnection.setDoOutput(true);
 			
+			//Obtención de la respuesta
 			br = new BufferedReader(new InputStreamReader((urlConnection.getInputStream()),charset));
 			response = "";
 			while ((output = br.readLine()) != null) {
@@ -354,6 +382,7 @@ public class RestauranteService {
 			}
 			System.out.println(response);
 			
+			//Desconexión
 			urlConnection.disconnect();
 			
 			return Response.status(Status.OK).build();

@@ -170,7 +170,7 @@ app.controller('MainController', function($scope, RestaurantService) {
     $scope.startApp = function() { //Establecimiento de los parámetros de la autenticación
         gapi.load('auth2', function(){
           auth2 = gapi.auth2.init({
-          	client_id: '882920806176-m1b6tbg86vgme4se7pauaor6lsfhi0d3.apps.googleusercontent.com',
+          	client_id: '1059981316989-a6a0htuohhslj65267mnmk8dp92e2mpn.apps.googleusercontent.com',
           	cookiepolicy: 'single_host_origin',
         });
           $scope.attachSignin(document.getElementById('login1'));
