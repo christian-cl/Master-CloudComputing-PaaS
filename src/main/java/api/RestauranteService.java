@@ -41,6 +41,9 @@ public class RestauranteService {
 	@GET
 	@Path("/populate")
 	public Response populateDB() {
+		//CREACIÓN Y ALMACENAMIENTO DE RESTAURANTES DE EJEMPLO EN EL DATASTORE
+		
+		//Creación de las entidades
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Entity e1 = new Entity("Restaurante");
 		e1.setProperty("nombre", "La Trastienda");
@@ -81,6 +84,9 @@ public class RestauranteService {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public List<Restaurante> getRestaurantes(@DefaultValue("1") @QueryParam("page") int page, @DefaultValue("20") @QueryParam("limit") int limit) throws IOException {
+		// OBTENCIÓN DE LA LISTA DE RESTAURANTES, CON POSIBILIDAD DE PAGINACIÓN
+		
+		//Query al datastore de Google
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("Restaurante").addSort("nombre",Query.SortDirection.ASCENDING);
 		FetchOptions fetchOptions = FetchOptions.Builder.withLimit(limit);
@@ -88,11 +94,12 @@ public class RestauranteService {
 		QueryResultList<Entity> results = pq.asQueryResultList(fetchOptions);
 		int pageCount = 1;
 		while(pageCount<page){
-			System.out.println("Hola");
 			fetchOptions.startCursor(results.getCursor());
 			results = pq.asQueryResultList(fetchOptions);
 			pageCount++;
 		}
+		
+		//Parseo de los restaurantes
 		List<Restaurante> restaurantes = new ArrayList<Restaurante>();
 		for(Entity e: results){
 			String nombre = (String) e.getProperty("nombre");
@@ -111,7 +118,8 @@ public class RestauranteService {
 	}
 	
 	private List<String> findPhotosUrlByTag(String tag) throws IOException {
-
+		//OBTENCIÓN DE UNA LISTA DE URLs DE IMÁGENES DE FLICKR A PARTIR DE UNA ETIQUETA
+		
 		URL url = new URL(
 				"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=d0e0a8fae98011fc86171d78743659af&tags="
 						+ tag);
@@ -151,10 +159,15 @@ public class RestauranteService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response addRestaurante(Restaurante r) {
+		//CREACIÓN DE UN RESTAURANTE EN EL DATASTORE
+		
+		//Query para comprobar si el restaurante ya existe
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
 		Query query = new Query("Restaurante").setFilter(propertyFilter);
 		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
+		
+		//Si no existe, lo añadimos
 		if(results.isEmpty()){
 			Entity e1 = new Entity("Restaurante");
 			e1.setProperty("nombre", r.getNombre());
@@ -175,10 +188,15 @@ public class RestauranteService {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response updateRestaurante(Restaurante r) {
+		//ACTUALIZACIÓN DE UN RESTAURANTE
+		
+		//Query para comprobar si el restaurante ya existe
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
 		Query query = new Query("Restaurante").setFilter(propertyFilter);
 		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
+		
+		//Si existe, lo actualizamos
 		if(results.isEmpty()){
 			return Response.serverError().build();
 		}else{
@@ -200,10 +218,15 @@ public class RestauranteService {
 	@Path("/delete")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response removeRestaurante(Restaurante r) {
+		//ELIMINACIÓN DE UN RESTAURANTE
+		
+		//Query para comprobar si el restaurante ya existe
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Filter propertyFilter = new FilterPredicate("email", FilterOperator.EQUAL, r.getEmail());
 		Query query = new Query("Restaurante").setFilter(propertyFilter);
 		QueryResultList<Entity> results = ds.prepare(query).asQueryResultList(FetchOptions.Builder.withLimit(1));
+		
+		//Si existe, lo eliminamos a partir de su key
 		if(!results.isEmpty()){
 			ds.delete(results.get(0).getKey());
 			return Response.status(Status.OK).build();
